@@ -1,56 +1,255 @@
-<footer>
-  <div class="footer__copyright">
-    &copy;
-    {{ 'now' | date: '%Y' }}
-    {{ shop.name | link_to: routes.root_url }}, {{ powered_by_link }}
-  </div>
+<script src='{{ 'footer.js' | asset_url }}' defer></script>
 
-  <div class="footer__links">
-    {% for link in section.settings.menu.links %}
-      {{ link.title | link_to: link.url }}
-    {% endfor %}
+<div
+  class="footer container px-4 md:px-15 pt-15 pb-12"
+  data-sprite-url="{{ 'sprite.svg' | asset_url }}"
+>
+  <div
+    class="footer__wrapper grid grid-cols-1 gap-0 mb-12 md:grid-cols-2 md:gap-6 xl:grid-cols-4 xl:gap-8"
+  >
+    <div
+      class="footer__inner w-full border-t border-stroke last:border-b md:border md:border-stroke md:px-2.5 xl:border-none xl:px-0 xl:last:border-b-0"
+    >
+      <details class="footer__details xl:open">
+        <summary
+          class="footer__summary flex w-full items-center justify-between gap-4 py-4 xl:py-2 text-left bg-transparent border-0 cursor-pointer list-none focus:outline-none focus-visible:outline-none xl:cursor-default xl:pointer-events-none xl:block"
+        >
+          <span class="footer__title block text-base font-medium text-dark"
+            >Resources</span
+          >
+          <svg class="footer__icon h-3.5 w-3.5 shrink-0 xl:hidden">
+            <use
+              class="footer__use"
+              href="{{ 'sprite.svg' | asset_url }}#arrow-down"
+            ></use>
+          </svg>
+        </summary>
+        <ul class="footer__list mb-4 space-y-3.5 md:mb-0">
+          <li class="footer__item">
+            <a
+              href="#"
+              class="footer__link text-sm leading-normal text-gray transition-colors duration-300 hover:text-dark focus:text-dark"
+              >Find a Store</a
+            >
+          </li>
+          <li class="footer__item">
+            <a
+              href="#"
+              class="footer__link text-sm leading-normal text-gray transition-colors duration-300 hover:text-dark focus:text-dark"
+              >Nike Journal</a
+            >
+          </li>
+          <li class="footer__item">
+            <a
+              href="#"
+              class="footer__link text-sm leading-normal text-gray transition-colors duration-300 hover:text-dark focus:text-dark"
+              >Become a Member</a
+            >
+          </li>
+          <li class="footer__item">
+            <a
+              href="#"
+              class="footer__link text-sm leading-normal text-gray transition-colors duration-300 hover:text-dark focus:text-dark"
+              >Feedback</a
+            >
+          </li>
+          <li class="footer__item">
+            <a
+              href="#"
+              class="footer__link text-sm leading-normal text-gray transition-colors duration-300 hover:text-dark focus:text-dark"
+              >Promo Codes</a
+            >
+          </li>
+        </ul>
+      </details>
+    </div>
+    <div
+      class="footer__inner w-full border-t border-stroke last:border-b md:border md:border-stroke md:px-2.5 xl:border-none xl:px-0 xl:last:border-b-0"
+    >
+      <details class="footer__details xl:open">
+        <summary
+          class="footer__summary flex w-full items-center justify-between gap-4 py-4 xl:py-2 text-left bg-transparent border-0 cursor-pointer list-none focus:outline-none focus-visible:outline-none xl:cursor-default xl:pointer-events-none xl:block"
+        >
+          <span class="footer__title block text-base font-medium text-dark"
+            >Help</span
+          >
+          <svg class="footer__icon h-3.5 w-3.5 shrink-0 xl:hidden">
+            <use
+              class="footer__use"
+              href="{{ 'sprite.svg' | asset_url }}#arrow-down"
+            ></use>
+          </svg>
+        </summary>
+        <ul class="footer__list mb-4 space-y-3.5 md:mb-0">
+          <li class="footer__item">
+            <a
+              href="#"
+              class="footer__link text-sm leading-normal text-gray transition-colors duration-300 hover:text-dark focus:text-dark"
+              >Get Help</a
+            >
+          </li>
+          <li class="footer__item">
+            <a
+              href="#"
+              class="footer__link text-sm leading-normal text-gray transition-colors duration-300 hover:text-dark focus:text-dark"
+              >Order Status</a
+            >
+          </li>
+          <li class="footer__item">
+            <a
+              href="#"
+              class="footer__link text-sm leading-normal text-gray transition-colors duration-300 hover:text-dark focus:text-dark"
+              >Shipping and Delivery</a
+            >
+          </li>
+          <li class="footer__item">
+            <a
+              href="#"
+              class="footer__link text-sm leading-normal text-gray transition-colors duration-300 hover:text-dark focus:text-dark"
+              >Returns</a
+            >
+          </li>
+          <li class="footer__item">
+            <a
+              href="#"
+              class="footer__link text-sm leading-normal text-gray transition-colors duration-300 hover:text-dark focus:text-dark"
+              >Payment Options</a
+            >
+          </li>
+        </ul>
+      </details>
+    </div>
+    <div
+      class="footer__inner w-full border-t border-stroke last:border-b md:border md:border-stroke md:px-2.5 xl:border-none xl:px-0 xl:last:border-b-0"
+    >
+      <details class="footer__details xl:open">
+        <summary
+          class="footer__summary flex w-full items-center justify-between gap-4 py-4 xl:py-2 text-left bg-transparent border-0 cursor-pointer list-none focus:outline-none focus-visible:outline-none xl:cursor-default xl:pointer-events-none xl:block"
+        >
+          <span class="footer__title block text-base font-medium text-dark"
+            >Company</span
+          >
+          <svg class="footer__icon h-3.5 w-3.5 shrink-0 xl:hidden">
+             <use
+              class="footer__use"
+              href="{{ 'sprite.svg' | asset_url }}#arrow-down"
+            ></use>
+          </svg>
+        </summary>
+        <ul class="footer__list mb-4 space-y-3.5 md:mb-0">
+          <li class="footer__item">
+            <a
+              href="#"
+              class="footer__link text-sm leading-normal text-gray transition-colors duration-300 hover:text-dark focus:text-dark"
+              >About Nike</a
+            >
+          </li>
+          <li class="footer__item">
+            <a
+              href="#"
+              class="footer__link text-sm leading-normal text-gray transition-colors duration-300 hover:text-dark focus:text-dark"
+              >News</a
+            >
+          </li>
+          <li class="footer__item">
+            <a
+              href="#"
+              class="footer__link text-sm leading-normal text-gray transition-colors duration-300 hover:text-dark focus:text-dark"
+              >Careers</a
+            >
+          </li>
+          <li class="footer__item">
+            <a
+              href="#"
+              class="footer__link text-sm leading-normal text-gray transition-colors duration-300 hover:text-dark focus:text-dark"
+              >Investors</a
+            >
+          </li>
+          <li class="footer__item">
+            <a
+              href="#"
+              class="footer__link text-sm leading-normal text-gray transition-colors duration-300 hover:text-dark focus:text-dark"
+              >Sustainability</a
+            >
+          </li>
+        </ul>
+      </details>
+    </div>
+    <div
+      class="footer__inner w-full border-t border-stroke last:border-b md:border md:border-stroke md:px-2.5 xl:border-none xl:px-0 xl:last:border-b-0"
+    >
+      <details class="footer__details xl:open">
+        <summary
+          class="footer__summary flex w-full items-center justify-between gap-4 py-4 xl:py-2 text-left bg-transparent border-0 cursor-pointer list-none focus:outline-none focus-visible:outline-none xl:cursor-default xl:pointer-events-none xl:block"
+        >
+          <span class="footer__title block text-base font-medium text-dark"
+            >Menu</span
+          >
+          <svg class="footer__icon h-3.5 w-3.5 shrink-0 xl:hidden">
+            <use
+              class="footer__use"
+              href="{{ 'sprite.svg' | asset_url }}#arrow-down"
+            ></use>
+          </svg>
+        </summary>
+        <ul class="footer__list mb-4 space-y-3.5 md:mb-0">
+          <li class="footer__item">
+            <a
+              href="#"
+              class="footer__link text-sm leading-normal text-gray transition-colors duration-300 hover:text-dark focus:text-dark"
+              >New &amp; Featured</a
+            >
+          </li>
+          <li class="footer__item">
+            <a
+              href="#"
+              class="footer__link text-sm leading-normal text-gray transition-colors duration-300 hover:text-dark focus:text-dark"
+              >Men</a
+            >
+          </li>
+          <li class="footer__item">
+            <a
+              href="#"
+              class="footer__link text-sm leading-normal text-gray transition-colors duration-300 hover:text-dark focus:text-dark"
+              >Women</a
+            >
+          </li>
+          <li class="footer__item">
+            <a
+              href="#"
+              class="footer__link text-sm leading-normal text-gray transition-colors duration-300 hover:text-dark focus:text-dark"
+              >Kids</a
+            >
+          </li>
+        </ul>
+      </details>
+    </div>
   </div>
-
-  <div class="footer__payment">
-    {% if section.settings.show_payment_icons %}
-      {% for type in shop.enabled_payment_types %}
-        {{ type | payment_type_svg_tag }}
-      {% endfor %}
-    {% endif %}
+  <div
+    class="footer__wrap flex flex-wrap items-center gap-y-3 gap-x-8 max-(--size-120):flex-col max-(--size-120):items-start max-(--size-120):gap-3 pt-12"
+  >
+    <small class="footer__legal text-sm leading-normal text-gray"
+      >© <span class="js-year"></span> Stellar Soft</small
+    >
+    <span class="footer__legal text-sm leading-normal text-gray"
+      >Terms of Use</span
+    >
+    <span class="footer__legal text-sm leading-normal text-gray"
+      >Privacy &amp; Cookie Policy</span
+    >
+    <span class="footer__legal text-sm leading-normal text-gray"
+      >Privacy &amp; Cookie Setting</span
+    >
   </div>
-</footer>
-
-{% stylesheet %}
-  footer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
-  }
-  footer a {
-    text-decoration: none;
-    color: var(--color-foreground);
-  }
-  footer .footer__links,
-  footer .footer__payment {
-    display: flex;
-    gap: 1rem;
-  }
-{% endstylesheet %}
+</div>
 
 {% schema %}
 {
-  "name": "t:general.footer",
-  "settings": [
+  "name": "Footer",
+  "settings": [],
+  "presets": [
     {
-      "type": "link_list",
-      "id": "menu",
-      "label": "t:labels.menu"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_payment_icons",
-      "label": "t:labels.show_payment_icons",
-      "default": true
+      "name": "Footer"
     }
   ]
 }

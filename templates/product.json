@@ -1,20 +1,31 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "main": {
-      "type": "product",
+    "main-product": {
+      "type": "main-product",
+      "settings": {}
+    },
+    "accordion": {
+      "type": "product-accordion",
+      "settings": {}
+    },
+    "reviews": {
+      "type": "product-reviews",
+      "settings": {}
+    },
+    "recommended-products": {
+      "type": "product-recommendations",
+      "settings": {}
+    },
+    "cta-banner": {
+      "type": "cta-banner",
       "settings": {}
     }
   },
   "order": [
-    "main"
+    "main-product",
+    "accordion",
+    "reviews",
+    "recommended-products",
+    "cta-banner"
   ]
 }

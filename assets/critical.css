@@ -20,8 +20,7 @@ html:has(dialog[scroll-lock][open], details[scroll-lock][open]) {
 img,
 picture,
 video,
-canvas,
-svg {
+canvas {
   display: block;
   max-width: 100%;
   height: auto;
@@ -97,7 +96,8 @@ body {
     calc(100% - var(--page-margin) * 2)
   );
   --content-margin: minmax(var(--page-margin), 1fr);
-  --content-grid: var(--content-margin) var(--content-width) var(--content-margin);
+  --content-grid: var(--content-margin) var(--content-width)
+    var(--content-margin);
 
   /* This is required to make <img> elements work as background images */
   position: relative;
