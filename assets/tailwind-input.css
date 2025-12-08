@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme {
+  --color-dark: #111111;
+  --color-white: #ffffff;
+  --color-gray: #737373;
+  --color-gray-light: #cacacb;
+  --color-stroke: #ebebeb;
+  --color-old-price: #c62828;
+
+  --size-120: 480px;
+}
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+
+  @variant md {
+    padding-inline: 2rem;
+  }
+
+  @variant lg {
+    padding-inline: 4rem;
+  }
+
+  @variant xl {
+    padding-inline: 9rem;
+  }
+
+  @variant 2xl {
+    padding-inline: 12rem;
+  }
+}
