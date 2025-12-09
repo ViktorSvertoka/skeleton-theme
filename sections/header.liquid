@@ -1,66 +1,71 @@
-<header>
-  <h2 class="header__title">
-    {{ shop.name | link_to: routes.root_url }}
-  </h2>
+<script src="{{ 'header.js' | asset_url }}" defer></script>
 
-  <div class="header__menu">
-    {% for link in section.settings.menu.links %}
-      {{ link.title | link_to: link.url }}
-    {% endfor %}
-  </div>
-
-  <div class="header__icons">
-    {% if shop.customer_accounts_enabled %}
-      {{ 'icon-account.svg' | inline_asset_content | link_to: routes.account_url }}
-    {% endif %}
-
-    <a href="{{ routes.cart_url }}">
-      {% if cart.item_count > 0 %}
-        <sup>{{ cart.item_count }}</sup>
-      {% endif %}
-
-      {{ 'icon-cart.svg' | inline_asset_content }}
+<div class="container mx-auto px-4 md:px-15">
+  <div class="header flex items-center justify-between py-4 md:py-8">
+    <button
+      class="header__menu flex items-center justify-center border-0 bg-transparent transition-transform duration-300 hover:scale-110 cursor-pointer md:hidden"
+      type="button"
+      aria-label="Open menu"
+      data-header-menu-toggle
+    >
+      <svg class="header__menu-icon h-8 w-8">
+        <use href="{{ 'sprite.svg' | asset_url }}#menu"></use>
+      </svg>
+    </button>
+    <a
+      href="/"
+      class="header__logo hidden items-center justify-center md:flex"
+      aria-label="Home page"
+    >
+      <svg class="header__logo-icon h-6 w-25">
+        <use href="{{ 'sprite.svg' | asset_url }}#logo"></use>
+      </svg>
+    </a>
+    <nav
+      class="header__nav fixed inset-0 z-50 flex h-full w-full translate-x-full bg-white p-0 text-center transition-transform duration-300 ease-out pointer-events-none md:static md:z-auto md:h-auto md:w-auto md:translate-x-0 md:bg-transparent md:p-0 md:text-left md:pointer-events-auto"
+      aria-label="Main navigation"
+      aria-hidden="true"
+      data-header-nav
+    >
+      <div
+        class="header__nav-inner relative flex h-full w-full flex-col bg-white p-8 md:h-auto md:w-auto md:flex-row md:bg-transparent md:p-0"
+      >
+        <button
+          class="header__close absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-transparent transition-transform duration-300 hover:scale-110 focus:outline-none cursor-pointer md:hidden"
+          type="button"
+          aria-label="Close menu"
+          data-header-menu-close
+        >
+          <svg class="modal__icon h-6 w-6 rotate-45">
+            <use href="{{ 'sprite.svg' | asset_url }}#plus"></use>
+          </svg>
+        </button>
+        <ul
+          class="header__list flex h-full w-full flex-col items-center justify-center gap-6 md:h-auto md:w-auto md:flex-row md:items-center md:justify-start md:gap-8"
+          data-header-menu
+        ></ul>
+      </div>
+    </nav>
+    <div
+      class="header__overlay fixed inset-0 z-40 bg-black/40 opacity-0 transition-opacity duration-300 pointer-events-none md:hidden"
+      aria-hidden="true"
+      data-header-overlay
+    ></div>
+    <a
+      href="#cart"
+      class="header__cart flex items-center justify-center"
+      aria-label="Shopping cart"
+    >
+      <svg class="header__cart-icon h-6 w-6">
+        <use href="{{ 'sprite.svg' | asset_url }}#cart"></use>
+      </svg>
     </a>
   </div>
-</header>
-
-{% stylesheet %}
-  header {
-    height: 5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  header a {
-    position: relative;
-    text-decoration: none;
-    color: var(--color-foreground);
-  }
-  header a sup {
-    position: absolute;
-    left: 100%;
-    overflow: hidden;
-    max-width: var(--page-margin);
-  }
-  header svg {
-    width: 2rem;
-  }
-  header .header__menu,
-  header .header__icons {
-    display: flex;
-    gap: 1rem;
-  }
-{% endstylesheet %}
+</div>
 
 {% schema %}
 {
-  "name": "t:general.header",
-  "settings": [
-    {
-      "type": "link_list",
-      "id": "menu",
-      "label": "t:labels.menu"
-    }
-  ]
+  "name": "Header",
+  "settings": []
 }
 {% endschema %}
