@@ -1,49 +1,37 @@
-<section class="container my-16">
-  <div class="relative overflow-hidden rounded-2xl bg-dark">
-    {% if section.settings.image %}
-  {% assign alt_text = section.settings.heading | default: 'CTA banner image' %}
+{% assign background_image = section.settings.image | image_url: width: 2000 %}
 
-  {{
-    section.settings.image
-    | image_url: width: 1440, height: 500
-    | image_tag:
-      alt: alt_text,
-      class: 'absolute inset-0 h-full w-full object-cover',
-      loading: 'lazy',
-      widths: '375,1440',
-      sizes: '100vw'
-  }}
-{% endif %}
+<section
+  class="w-full flex justify-center bg-cover bg-center"
+  {% if section.settings.image %}
+    style="background-image: linear-gradient(0deg, rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url({{ background_image }});"
+  {% endif %}
+>
+  <div class="w-full max-w-[1440px] h-[500px] grid grid-cols-1 lg:grid-cols-2 items-start gap-10 px-6 py-16 lg:px-20 lg:py-24">
+    <div>
+      {% if section.settings.heading != blank %}
+        <h2 class="font-normal text-[30px] leading-9 text-white max-w-[648px] mb-4">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
 
-    <div class="absolute inset-0 bg-black/60"></div>
+      {% if section.settings.text != blank %}
+        <p class="font-normal text-[16px] leading-6 text-white max-w-[648px] mb-8">
+          {{ section.settings.text }}
+        </p>
+      {% endif %}
 
-    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 items-center gap-10 px-6 py-16 lg:px-16 lg:py-24">
-      <div>
-        {% if section.settings.heading != blank %}
-          <h2 class="text-3xl md:text-4xl xl:text-5xl font-semibold text-white mb-4">
-            {{ section.settings.heading }}
-          </h2>
-        {% endif %}
-
-        {% if section.settings.text != blank %}
-          <p class="text-base md:text-lg text-gray-light max-w-xl mb-8">
-            {{ section.settings.text }}
-          </p>
-        {% endif %}
-
-        {% if section.settings.button_label != blank %}
-          <a
-            href="{{ section.settings.button_link }}"
-            class="inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-sm font-medium text-dark transition hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white"
-          >
-            {{ section.settings.button_label }}
-          </a>
-        {% endif %}
-      </div>
-      <div class="hidden lg:block"></div>
+      {% if section.settings.button_label != blank %}
+        <a
+          href="{{ section.settings.button_link }}"
+          class="inline-flex items-center justify-center bg-white text-black font-normal text-[16px] leading-6 px-8 py-4 rounded-lg transition hover:bg-gray-100"
+        >
+          {{ section.settings.button_label }}
+        </a>
+      {% endif %}
     </div>
   </div>
 </section>
+
 
 {% schema %}
 {
@@ -64,7 +52,7 @@
       "type": "textarea",
       "id": "text",
       "label": "Text",
-      "default": "Experience the perfect mix of style, support, and all-day cushioning."
+      "default": "Experience the perfect mix of style, support, and all-day cushioning with Nike Air Max Plus."
     },
     {
       "type": "text",
