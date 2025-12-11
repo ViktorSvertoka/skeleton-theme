@@ -11,6 +11,7 @@
   "sections": {
     "main": {
       "type": "hello-world",
+      "disabled": true,
       "settings": {}
     },
     "cta_banner_MkQMGg": {
@@ -19,7 +20,7 @@
       "settings": {
         "image": "shopify://shop_images/cta.webp",
         "heading": "Step Into Next-Level Comfort",
-        "text": "Experience the perfect mix of style, support, and all-day cushioning.",
+        "text": "Experience the perfect mix of style, support, and all-day cushioning with Nike Air Max Plus.",
         "button_label": "Shop Now",
         "button_link": ""
       }

@@ -1,21 +1,21 @@
-{% assign background_image = section.settings.image | image_url: width: 2000 %}
+{% assign background_image = section.settings.image | image_url: width: 1440 %}
 
 <section
   class="w-full flex justify-center bg-cover bg-center"
   {% if section.settings.image %}
-    style="background-image: linear-gradient(0deg, rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url({{ background_image }});"
+    style="background-image: url({{ background_image }});"
   {% endif %}
 >
-  <div class="w-full max-w-[1440px] h-[500px] grid grid-cols-1 lg:grid-cols-2 items-start gap-10 px-6 py-16 lg:px-20 lg:py-24">
+  <div class="w-full max-w-[1440px] h-[500px] grid grid-cols-1 lg:grid-cols-2 items-start gap-10 px-4 py-[126px] lg:px-[60px] lg:py-[156px]">
     <div>
       {% if section.settings.heading != blank %}
-        <h2 class="font-normal text-[30px] leading-9 text-white max-w-[648px] mb-4">
+        <h2 class="font-normal text-[30px] leading-9 text-white max-w-[648px] mb-4!">
           {{ section.settings.heading }}
         </h2>
       {% endif %}
 
       {% if section.settings.text != blank %}
-        <p class="font-normal text-[16px] leading-6 text-white max-w-[648px] mb-8">
+        <p class="font-normal text-[16px] leading-6 text-white max-w-[648px] mb-8!">
           {{ section.settings.text }}
         </p>
       {% endif %}
