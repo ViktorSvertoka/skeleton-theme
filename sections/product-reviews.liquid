@@ -1,0 +1,58 @@
+<section class="max-w-[1320px] mx-auto px-4 lg:px-0 py-16">
+  {% assign reviews = product.metafields.custom.reviews_json | parse_json %}
+  {% if reviews != blank %}
+    <h2 class="text-center text-[30px] font-semibold text-dark mb-10">
+      Reviews
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for review in reviews %}
+        <div class="border border-white rounded-xl p-6 shadow-sm bg-white flex flex-col justify-between">
+         <div class="flex gap-1 mb-4">
+           {% for i in (1..review.rating) %}
+                <svg class="w-4 h-4 text-dark fill-current">
+                  <use href="{{ 'sprite.svg' | asset_url }}#star"></use>
+                </svg>
+           {% endfor %}
+         </div>
+          <p class="text-[16px] text-dark leading-6 mb-6">
+            {{ review.text }}
+          </p>
+          <div class="flex items-center gap-3 mt-auto">
+            {% if review.avatar %}
+              {{ review.avatar 
+                | image_url: width: 54, height: 54, crop: 'center' 
+                | image_tag: 
+                  class: 'w-10 h-10 rounded-full object-cover',
+                  loading: 'lazy',
+                  alt: review.name 
+              }}
+            {% endif %}
+            <div class="flex flex-col">
+              <span class="text-[16px] font-medium text-dark">
+                {{ review.name }}
+              </span>
+              <span class="text-[16px] text-gray">
+                {{ review.location }}
+              </span>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-center text-gray">No reviews yet.</p>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Product Reviews",
+  "tag": "section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Product Reviews"
+    }
+  ]
+}
+{% endschema %}
