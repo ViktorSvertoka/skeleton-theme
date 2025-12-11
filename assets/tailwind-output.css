@@ -7,6 +7,7 @@
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
+    --color-gray-100: oklch(96.7% 0.003 264.542);
     --color-gray-200: oklch(92.8% 0.006 264.531);
     --color-black: #000;
     --color-white: #ffffff;
@@ -27,6 +28,7 @@
     --text-4xl--line-height: calc(2.5 / 2.25);
     --text-5xl: 3rem;
     --text-5xl--line-height: 1;
+    --font-weight-normal: 400;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --leading-normal: 1.5;
@@ -273,6 +275,9 @@
   .my-16 {
     margin-block: calc(var(--spacing) * 16);
   }
+  .mt-8 {
+    margin-top: calc(var(--spacing) * 8);
+  }
   .mb-4 {
     margin-bottom: calc(var(--spacing) * 4);
   }
@@ -281,6 +286,9 @@
   }
   .mb-12 {
     margin-bottom: calc(var(--spacing) * 12);
+  }
+  .mb-20 {
+    margin-bottom: calc(var(--spacing) * 20);
   }
   .block {
     display: block;
@@ -318,6 +326,9 @@
   .h-10 {
     height: calc(var(--spacing) * 10);
   }
+  .h-\[500px\] {
+    height: 500px;
+  }
   .h-full {
     height: 100%;
   }
@@ -336,8 +347,20 @@
   .w-25 {
     width: calc(var(--spacing) * 25);
   }
+  .w-\[1440\] {
+    width: 1440;
+  }
+  .w-\[1440px\] {
+    width: 1440px;
+  }
   .w-full {
     width: 100%;
+  }
+  .max-w-\[648px\] {
+    max-width: 648px;
+  }
+  .max-w-\[1440px\] {
+    max-width: 1440px;
   }
   .max-w-xl {
     max-width: var(--container-xl);
@@ -380,6 +403,9 @@
   .items-center {
     align-items: center;
   }
+  .items-start {
+    align-items: flex-start;
+  }
   .justify-between {
     justify-content: space-between;
   }
@@ -416,6 +442,9 @@
   }
   .rounded-2xl {
     border-radius: var(--radius-2xl);
+  }
+  .rounded-\[8px\] {
+    border-radius: 8px;
   }
   .rounded-full {
     border-radius: calc(infinity * 1px);
@@ -459,8 +488,17 @@
   .bg-white {
     background-color: var(--color-white);
   }
+  .bg-cover {
+    background-size: cover;
+  }
+  .bg-center {
+    background-position: center;
+  }
   .object-cover {
     object-fit: cover;
+  }
+  .object-center {
+    object-position: center;
   }
   .p-0 {
     padding: calc(var(--spacing) * 0);
@@ -473,6 +511,9 @@
   }
   .px-6 {
     padding-inline: calc(var(--spacing) * 6);
+  }
+  .px-8 {
+    padding-inline: calc(var(--spacing) * 8);
   }
   .py-3 {
     padding-block: calc(var(--spacing) * 3);
@@ -489,8 +530,14 @@
   .pt-15 {
     padding-top: calc(var(--spacing) * 15);
   }
+  .pt-20 {
+    padding-top: calc(var(--spacing) * 20);
+  }
   .pb-12 {
     padding-bottom: calc(var(--spacing) * 12);
+  }
+  .pb-\[60px\] {
+    padding-bottom: 60px;
   }
   .text-center {
     text-align: center;
@@ -510,6 +557,28 @@
     font-size: var(--text-sm);
     line-height: var(--tw-leading, var(--text-sm--line-height));
   }
+  .text-\[16px\] {
+    font-size: 16px;
+  }
+  .text-\[30px\] {
+    font-size: 30px;
+  }
+  .leading-6 {
+    --tw-leading: calc(var(--spacing) * 6);
+    line-height: calc(var(--spacing) * 6);
+  }
+  .leading-9 {
+    --tw-leading: calc(var(--spacing) * 9);
+    line-height: calc(var(--spacing) * 9);
+  }
+  .leading-\[24px\] {
+    --tw-leading: 24px;
+    line-height: 24px;
+  }
+  .leading-\[36px\] {
+    --tw-leading: 36px;
+    line-height: 36px;
+  }
   .leading-normal {
     --tw-leading: var(--leading-normal);
     line-height: var(--leading-normal);
@@ -518,9 +587,16 @@
     --tw-font-weight: var(--font-weight-medium);
     font-weight: var(--font-weight-medium);
   }
+  .font-normal {
+    --tw-font-weight: var(--font-weight-normal);
+    font-weight: var(--font-weight-normal);
+  }
   .font-semibold {
     --tw-font-weight: var(--font-weight-semibold);
     font-weight: var(--font-weight-semibold);
+  }
+  .text-black {
+    color: var(--color-black);
   }
   .text-dark {
     color: var(--color-dark);
@@ -587,6 +663,13 @@
         --tw-scale-y: 110%;
         --tw-scale-z: 110%;
         scale: var(--tw-scale-x) var(--tw-scale-y);
+      }
+    }
+  }
+  .hover\:bg-gray-100 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-gray-100);
       }
     }
   }
@@ -774,6 +857,11 @@
   .lg\:px-16 {
     @media (width >= 64rem) {
       padding-inline: calc(var(--spacing) * 16);
+    }
+  }
+  .lg\:px-20 {
+    @media (width >= 64rem) {
+      padding-inline: calc(var(--spacing) * 20);
     }
   }
   .lg\:py-24 {

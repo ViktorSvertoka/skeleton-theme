@@ -12,9 +12,21 @@
     "main": {
       "type": "hello-world",
       "settings": {}
+    },
+    "cta_banner_MkQMGg": {
+      "type": "cta-banner",
+      "name": "CTA Banner",
+      "settings": {
+        "image": "shopify://shop_images/cta.webp",
+        "heading": "Step Into Next-Level Comfort",
+        "text": "Experience the perfect mix of style, support, and all-day cushioning.",
+        "button_label": "Shop Now",
+        "button_link": ""
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "cta_banner_MkQMGg"
   ]
 }
