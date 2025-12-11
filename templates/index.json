@@ -24,10 +24,16 @@
         "button_label": "Shop Now",
         "button_link": ""
       }
+    },
+    "product_reviews_kjWeMX": {
+      "type": "product-reviews",
+      "name": "Product Reviews",
+      "settings": {}
     }
   },
   "order": [
     "main",
-    "cta_banner_MkQMGg"
+    "cta_banner_MkQMGg",
+    "product_reviews_kjWeMX"
   ]
 }
