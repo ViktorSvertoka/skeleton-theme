@@ -6,16 +6,16 @@
     style="background-image: url({{ background_image }});"
   {% endif %}
 >
-  <div class="w-full max-w-[1440px] h-[500px] grid grid-cols-1 lg:grid-cols-2 items-start gap-10 px-4 py-[126px] lg:px-[60px] lg:py-[156px]">
+  <div class="w-full max-w-[1440px] h-[500px] grid grid-cols-1 lg:grid-cols-2 items-start gap-10 px-4 py-[126px] lg:py-[156px]">
     <div>
       {% if section.settings.heading != blank %}
-        <h2 class="font-normal text-[30px] leading-9 text-white max-w-[648px] mb-4!">
+        <h2 class="font-normal text-[30px] leading-9 text-white max-w-[648px] mb-4">
           {{ section.settings.heading }}
         </h2>
       {% endif %}
 
       {% if section.settings.text != blank %}
-        <p class="font-normal text-[16px] leading-6 text-white max-w-[648px] mb-8!">
+        <p class="font-normal text-[16px] leading-6 text-white max-w-[648px] mb-8">
           {{ section.settings.text }}
         </p>
       {% endif %}
