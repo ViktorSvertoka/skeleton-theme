@@ -21,14 +21,14 @@
         "product": "nike-air-max-plus"
       }
     },
-    "reviews": {
-      "type": "reviews",
+    "recommendations": {
+      "type": "recommendations",
       "settings": {
         "product": "nike-air-max-plus"
       }
     },
-    "recommendations": {
-      "type": "recommendations",
+    "reviews": {
+      "type": "reviews",
       "settings": {
         "product": "nike-air-max-plus"
       }
@@ -47,8 +47,8 @@
   "order": [
     "main-product",
     "accordion",
-    "reviews",
     "recommendations",
+    "reviews",
     "cta"
   ]
 }
