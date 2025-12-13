@@ -1,53 +1,104 @@
-<section class="max-w-[1320px] mx-auto px-4 lg:px-0 py-16">
-<pre>
-PRODUCT: {{ product.title }}
-RAW: {{ product.metafields.custom.reviews_json }}
-</pre>
+{% unless reviews_slider_css_loaded %}
+  {% assign reviews_slider_css_loaded = true %}
+  {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+  <style>
+    .reviews-slider .swiper {
+      overflow: hidden;
+    }
 
-  {% assign reviews = product.metafields.custom.reviews_json | parse_json %}
-  {% if reviews != blank %}
+    .reviews-slider .swiper-pagination .swiper-pagination-bullet {
+      width: 10px;
+      height: 10px;
+      background: #c1c1c1;
+      opacity: 1;
+    }
+
+    .reviews-slider .swiper-pagination .swiper-pagination-bullet-active {
+      background: #111111;
+    }
+  </style>
+{% endunless %}
+<section class="max-w-[1320px] mx-auto px-4 lg:px-0 py-16" data-reviews-section>
+  {% liquid
+    assign target_product = product | default: section.settings.product
+    if target_product
+      assign reviews_field = target_product.metafields.custom.reviews_json
+      if reviews_field.value != blank
+        assign reviews = reviews_field.value
+      elsif reviews_field != blank
+        assign reviews = reviews_field | parse_json
+      endif
+    endif
+  %}
+  {% if target_product == blank %}
+    <p class="text-center text-gray">Select a product for this section to display reviews.</p>
+  {% elsif reviews != blank %}
     <h2 class="text-center text-[30px] font-semibold text-dark mb-10">
       Reviews
     </h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {% for review in reviews %}
-        <div class="border border-white rounded-xl p-6 shadow-sm bg-white flex flex-col justify-between">
-         <div class="flex gap-1 mb-4">
-           {% for i in (1..review.rating) %}
-                <svg class="w-4 h-4 text-dark fill-current">
-                  <use href="{{ 'sprite.svg' | asset_url }}#star"></use>
-                </svg>
-           {% endfor %}
-         </div>
-          <p class="text-[16px] text-dark leading-6 mb-6">
-            {{ review.text }}
-          </p>
-          <div class="flex items-center gap-3 mt-auto">
-            {% if review.avatar %}
-              {{ review.avatar 
-                | image_url: width: 54, height: 54, crop: 'center' 
-                | image_tag: 
-                  class: 'w-10 h-10 rounded-full object-cover',
-                  loading: 'lazy',
-                  alt: review.name 
-              }}
-            {% endif %}
-            <div class="flex flex-col">
-              <span class="text-[16px] font-medium text-dark">
-                {{ review.name }}
-              </span>
-              <span class="text-[16px] text-gray">
-                {{ review.location }}
-              </span>
+    <div class="reviews-slider" data-reviews-slider>
+      <div class="swiper" data-reviews-swiper>
+        <div class="swiper-wrapper">
+          {% for review in reviews %}
+            <div class="swiper-slide">
+              <div class="border border-stroke rounded-lg p-6 bg-white flex flex-col h-full">
+                <div class="flex gap-1 mb-4">
+                  {% for i in (1..review.rating) %}
+                    <svg class="w-4 h-4 text-dark fill-current">
+                      <use href="{{ 'sprite.svg' | asset_url }}#star"></use>
+                    </svg>
+                  {% endfor %}
+                </div>
+                <p class="text-[16px] text-dark leading-6 mb-6 flex-1">
+                  {{ review.text }}
+                </p>
+                <div class="flex items-center gap-3 mt-4">
+                  {% if review.avatar %}
+                    <img
+                      src="{{ review.avatar }}"
+                      alt="{{ review.name | escape }}"
+                      loading="lazy"
+                      class="w-13 h-13 rounded-full object-cover"
+                      width="40"
+                      height="40"
+                    >
+                  {% endif %}
+                  <div class="flex flex-col">
+                    <span class="text-[16px] font-medium text-dark">
+                      {{ review.name }}
+                    </span>
+                    <span class="text-[16px] text-gray">
+                      {{ review.location }}
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+          {% endfor %}
         </div>
-      {% endfor %}
+      </div>
+      <div class="flex items-center justify-between mt-6 gap-4">
+        <div class="swiper-pagination static! w-auto!" data-reviews-pagination></div>
+        <div class="flex gap-2">
+          <button type="button" class="w-10 h-10 rounded-full border border-gray flex items-center justify-center text-dark hover:bg-dark hover:text-white transition" data-reviews-prev aria-label="Previous review">
+            ‹
+          </button>
+          <button type="button" class="w-10 h-10 rounded-full border border-gray flex items-center justify-center text-dark hover:bg-dark hover:text-white transition" data-reviews-next aria-label="Next review">
+            ›
+          </button>
+        </div>
+      </div>
     </div>
   {% else %}
-    <p class="text-center text-gray">No reviews yet</p>
+    <p class="text-center text-gray">No reviews yet...</p>
   {% endif %}
 </section>
+
+{% unless reviews_slider_js_loaded %}
+  {% assign reviews_slider_js_loaded = true %}
+  <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
+  <script src="{{ 'reviews.js' | asset_url }}" defer></script>
+{% endunless %}
 
 {% schema %}
 {
@@ -67,5 +118,3 @@ RAW: {{ product.metafields.custom.reviews_json }}
   ]
 }
 {% endschema %}
-
-
