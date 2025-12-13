@@ -1,38 +1,32 @@
 {
   "sections": {
-    "featured-product": {
-      "type": "featured-product",
+    "main-product": {
+      "type": "main-product",
       "settings": {
         "product": "nike-air-max-plus"
       }
     },
-    "featured-accordion": {
-      "type": "featured-product-accordion",
+    "accordion": {
+      "type": "accordion",
       "settings": {
         "product": "nike-air-max-plus"
       }
     },
-    "featured-reviews": {
-      "type": "featured-product-reviews",
+    "reviews": {
+      "type": "reviews",
       "settings": {
         "product": "nike-air-max-plus"
       }
     },
-    "featured-recommendations": {
-      "type": "featured-product-recommendations",
+    "recommendations": {
+      "type": "recommendations",
       "settings": {
         "product": "nike-air-max-plus"
       }
     },
     "cta": {
-      "type": "cta-banner"
+      "type": "cta"
     }
   },
-  "order": [
-    "featured-product",
-    "featured-accordion",
-    "featured-reviews",
-    "featured-recommendations",
-    "cta"
-  ]
+  "order": ["main-product", "accordion", "reviews", "recommendations", "cta"]
 }

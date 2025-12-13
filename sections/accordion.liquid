@@ -1,0 +1,31 @@
+{% assign product = section.settings.product %}
+
+{% if product %}
+<section class="featured-product-accordion">
+  <div class="container">
+    <h2>Product Details</h2>
+    <div>
+      {{ product.description }}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Accordion",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Accordion"
+    }
+  ]
+}
+{% endschema %}

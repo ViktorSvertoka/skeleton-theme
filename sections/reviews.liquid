@@ -45,19 +45,27 @@ RAW: {{ product.metafields.custom.reviews_json }}
       {% endfor %}
     </div>
   {% else %}
-    <p class="text-center text-gray">No reviews yet.</p>
+    <p class="text-center text-gray">No reviews yet</p>
   {% endif %}
 </section>
 
 {% schema %}
 {
-  "name": "Product Reviews",
+  "name": "Reviews",
   "tag": "section",
-  "settings": [],
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    }
+  ],
   "presets": [
     {
-      "name": "Product Reviews"
+      "name": "Reviews"
     }
   ]
 }
 {% endschema %}
+
+
