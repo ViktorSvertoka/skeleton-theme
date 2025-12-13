@@ -1,0 +1,36 @@
+{% assign product = section.settings.product %}
+
+{% if product %}
+<section class="featured-product-recommendations">
+  <div class="container">
+    <h2>You may also like</h2>
+
+    <product-recommendations
+      product-id="{{ product.id }}"
+      limit="4"
+    >
+      Loading recommendations…
+    </product-recommendations>
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Recommendations",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Recommendations"
+    }
+  ]
+}
+{% endschema %}
+

@@ -51,13 +51,21 @@ RAW: {{ product.metafields.custom.reviews_json }}
 
 {% schema %}
 {
-  "name": "Product Reviews",
+  "name": "Reviews",
   "tag": "section",
-  "settings": [],
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    }
+  ],
   "presets": [
     {
-      "name": "Product Reviews"
+      "name": "Reviews"
     }
   ]
 }
 {% endschema %}
+
+
