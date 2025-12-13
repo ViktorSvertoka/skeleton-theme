@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main-product": {
@@ -25,8 +34,21 @@
       }
     },
     "cta": {
-      "type": "cta"
+      "type": "cta",
+      "settings": {
+        "image": "shopify://shop_images/cta.webp",
+        "heading": "Step Into Next-Level Comfort",
+        "text": "Experience the perfect mix of style, support, and all-day cushioning with Nike Air Max Plus.",
+        "button_label": "Shop Now",
+        "button_link": ""
+      }
     }
   },
-  "order": ["main-product", "accordion", "reviews", "recommendations", "cta"]
+  "order": [
+    "main-product",
+    "accordion",
+    "reviews",
+    "recommendations",
+    "cta"
+  ]
 }
