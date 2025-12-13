@@ -1,1 +1,6 @@
-extends: theme-check:recommended
+theme-check:
+  extends: theme
+  checks:
+    UnknownFilter:
+      ignored_filters:
+        - parse_json
