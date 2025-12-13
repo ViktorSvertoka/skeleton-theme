@@ -5,7 +5,7 @@
       "settings": {}
     },
     "accordion": {
-      "type": "product-accordion",
+      "type": "featured-product-accordion",
       "settings": {}
     },
     "reviews": {
@@ -13,7 +13,7 @@
       "settings": {}
     },
     "recommended-products": {
-      "type": "product-recommendations",
+      "type": "featured-product-recommendations",
       "settings": {}
     },
     "cta-banner": {

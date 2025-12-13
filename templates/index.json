@@ -1,39 +1,38 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "main": {
-      "type": "hello-world",
-      "disabled": true,
-      "settings": {}
-    },
-    "cta_banner_MkQMGg": {
-      "type": "cta-banner",
-      "name": "CTA Banner",
+    "featured-product": {
+      "type": "featured-product",
       "settings": {
-        "image": "shopify://shop_images/cta.webp",
-        "heading": "Step Into Next-Level Comfort",
-        "text": "Experience the perfect mix of style, support, and all-day cushioning with Nike Air Max Plus.",
-        "button_label": "Shop Now",
-        "button_link": ""
+        "product": "nike-air-max-plus"
       }
     },
-    "product_reviews_kjWeMX": {
-      "type": "product-reviews",
-      "name": "Product Reviews",
-      "settings": {}
+    "featured-accordion": {
+      "type": "featured-product-accordion",
+      "settings": {
+        "product": "nike-air-max-plus"
+      }
+    },
+    "featured-reviews": {
+      "type": "featured-product-reviews",
+      "settings": {
+        "product": "nike-air-max-plus"
+      }
+    },
+    "featured-recommendations": {
+      "type": "featured-product-recommendations",
+      "settings": {
+        "product": "nike-air-max-plus"
+      }
+    },
+    "cta": {
+      "type": "cta-banner"
     }
   },
   "order": [
-    "main",
-    "cta_banner_MkQMGg",
-    "product_reviews_kjWeMX"
+    "featured-product",
+    "featured-accordion",
+    "featured-reviews",
+    "featured-recommendations",
+    "cta"
   ]
 }
