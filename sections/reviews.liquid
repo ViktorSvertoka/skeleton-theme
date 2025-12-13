@@ -33,7 +33,7 @@
   {% if target_product == blank %}
     <p class="text-center text-gray">Select a product for this section to display reviews.</p>
   {% elsif reviews != blank %}
-    <h2 class="text-center text-[30px] font-semibold text-dark mb-10">
+    <h2 class="text-center text-[30px] font-normal text-dark mb-10">
       Reviews
     </h2>
     <div class="reviews-slider" data-reviews-slider>
@@ -42,9 +42,9 @@
           {% for review in reviews %}
             <div class="swiper-slide">
               <div class="border border-stroke rounded-lg p-6 bg-white flex flex-col h-full">
-                <div class="flex gap-1 mb-4">
+                <div class="flex mb-4">
                   {% for i in (1..review.rating) %}
-                    <svg class="w-4 h-4 text-dark fill-current">
+                    <svg class="w-6 h-6 text-dark fill-current">
                       <use href="{{ 'sprite.svg' | asset_url }}#star"></use>
                     </svg>
                   {% endfor %}
