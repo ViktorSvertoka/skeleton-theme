@@ -24,7 +24,8 @@
     "recommendations": {
       "type": "recommendations",
       "settings": {
-        "product": "nike-air-max-plus"
+        "heading": "You may also like",
+        "collection": "you-may-also-like"
       }
     },
     "reviews": {
