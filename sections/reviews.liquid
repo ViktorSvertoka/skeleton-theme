@@ -1,24 +1,6 @@
-{% unless reviews_slider_css_loaded %}
-  {% assign reviews_slider_css_loaded = true %}
-  {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
-  <style>
-    .reviews-slider .swiper {
-      overflow: hidden;
-    }
+<script src="{{ 'reviews.js' | asset_url }}" defer></script>
 
-    .reviews-slider .swiper-pagination .swiper-pagination-bullet {
-      width: 10px;
-      height: 10px;
-      background: #c1c1c1;
-      opacity: 1;
-    }
-
-    .reviews-slider .swiper-pagination .swiper-pagination-bullet-active {
-      background: #111111;
-    }
-  </style>
-{% endunless %}
-<section class="max-w-[1320px] mx-auto px-4 lg:px-0 py-16" data-reviews-section>
+<section class="max-w-[1320px] mx-auto px-4 lg:px-0 pt-10 pb-20" data-reviews-section>
   {% liquid
     assign target_product = product | default: section.settings.product
     if target_product
@@ -80,11 +62,15 @@
       <div class="flex items-center justify-between mt-6 gap-4">
         <div class="swiper-pagination static! w-auto!" data-reviews-pagination></div>
         <div class="flex gap-2">
-          <button type="button" class="w-10 h-10 rounded-full border border-gray flex items-center justify-center text-dark hover:bg-dark hover:text-white transition" data-reviews-prev aria-label="Previous review">
-            ‹
+          <button type="button" class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-dark hover:bg-dark hover:text-white transition cursor-pointer" data-reviews-prev aria-label="Previous review">
+            <svg class="w-4 h-4 fill-current">
+    <use href="{{ 'sprite.svg' | asset_url }}#arrow-left"></use>
+  </svg>
           </button>
-          <button type="button" class="w-10 h-10 rounded-full border border-gray flex items-center justify-center text-dark hover:bg-dark hover:text-white transition" data-reviews-next aria-label="Next review">
-            ›
+          <button type="button" class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-dark hover:bg-dark hover:text-white transition cursor-pointer" data-reviews-next aria-label="Next review">
+            <svg class="w-4 h-4 fill-current">
+    <use href="{{ 'sprite.svg' | asset_url }}#arrow-right"></use>
+  </svg>
           </button>
         </div>
       </div>
@@ -93,12 +79,6 @@
     <p class="text-center text-gray">No reviews yet...</p>
   {% endif %}
 </section>
-
-{% unless reviews_slider_js_loaded %}
-  {% assign reviews_slider_js_loaded = true %}
-  <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
-  <script src="{{ 'reviews.js' | asset_url }}" defer></script>
-{% endunless %}
 
 {% schema %}
 {

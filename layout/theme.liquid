@@ -11,6 +11,7 @@
     {% endunless %}
 
     {{ 'tailwind-output.css' | asset_url | stylesheet_tag: preload: true }}
+    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag: preload: true }}
 
     {% render 'meta-tags' %}
 
@@ -23,5 +24,7 @@
     {{ content_for_layout }}
 
     {% sections 'footer-group' %}
+
+     <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
   </body>
 </html>

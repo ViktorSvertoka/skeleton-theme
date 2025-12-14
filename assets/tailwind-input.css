@@ -31,3 +31,18 @@
     padding-inline: 12rem;
   }
 }
+
+.reviews-slider .swiper {
+  overflow: hidden;
+}
+
+.reviews-slider .swiper-pagination .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background-color: var(--color-gray-light);
+  opacity: 1;
+}
+
+.reviews-slider .swiper-pagination .swiper-pagination-bullet-active {
+  background-color: var(--color-dark);
+}
