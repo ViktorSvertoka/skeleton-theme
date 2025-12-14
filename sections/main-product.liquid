@@ -4,7 +4,7 @@
 <script src="{{ 'main-product.js' | asset_url }}" defer></script>
 
 <section class="product">
-  <div class="mx-auto max-w-[1200px] px-4">
+  <div class="mx-auto max-w-[1320px] px-4">
 
     <nav class="mb-4 text-sm text-gray-500">
       <a href="{{ routes.root_url }}" class="hover:text-black">Home</a>
@@ -14,7 +14,7 @@
 
     <div class="product__content flex flex-col items-center gap-8 lg:flex-row lg:items-start">
 
-      <div class="product__gallery flex gap-4 w-[640px]">
+      <div class="product__gallery flex gap-4 max-w-[640px]">
 
         <div class="product__thumbs swiper hidden lg:block w-[88px]">
           <div class="swiper-wrapper"></div>
@@ -36,7 +36,7 @@
 
       </div>
 
-      <div class="product__info w-full max-w-[520px]">
+      <div class="product__info max-w-[640px]">
 
         <h1 class="mb-2 text-2xl font-medium">
           {{ product.title }}
@@ -105,7 +105,7 @@
             <li>
               <button
                 type="button"
-                class="product__sizes-btn h-[44px] w-full rounded-lg border text-sm transition hover:border-black"
+                class="product__sizes-btn h-11 w-full rounded-lg border text-sm transition hover:border-black"
                 data-size="{{ value }}"
               >
                 UK {{ value }}
@@ -123,17 +123,50 @@
           >
           <button
             type="submit"
-            class="mb-4 h-[48px] w-full rounded-xl bg-black text-sm font-medium text-white transition hover:bg-gray-900"
+            class="mb-4 h-12 w-full rounded-xl bg-black text-sm font-medium text-white transition hover:bg-gray-900"
           >
             Add To Bag
           </button>
         {% endform %}
 
-        <ul class="mb-4 space-y-2 text-sm text-gray-600">
-          <li>🚚 Free U.S. Shipping Over $150</li>
-          <li>🔒 Safe & Secure Checkout</li>
-          <li>💳 Afterpay available at checkout</li>
-        </ul>
+        <ul class="mb-4 space-y-3 text-sm text-gray-600">
+  <li class="flex items-start gap-2">
+    <svg
+      class="mt-0.5 h-4 w-4 shrink-0"
+      aria-hidden="true"
+    >
+      <use href="{{ 'sprite.svg' | asset_url }}#shipping"></use>
+    </svg>
+    <p class="leading-snug">
+      Free U.S. Shipping Over $150
+    </p>
+  </li>
+
+  <li class="flex items-start gap-2">
+    <svg
+      class="mt-0.5 h-4 w-4 shrink-0"
+      aria-hidden="true"
+    >
+      <use href="{{ 'sprite.svg' | asset_url }}#checkout"></use>
+    </svg>
+    <p class="leading-snug">
+      Safe &amp; Secure Checkout
+    </p>
+  </li>
+
+  <li class="flex items-start gap-2">
+    <svg
+      class="mt-0.5 h-4 w-4 shrink-0"
+      aria-hidden="true"
+    >
+      <use href="{{ 'sprite.svg' | asset_url }}#afterpay"></use>
+    </svg>
+    <p class="leading-snug">
+      Afterpay available at checkout
+    </p>
+  </li>
+</ul>
+
 
         <p class="text-sm leading-relaxed text-gray-600">
           Let your attitude have the edge in your Nike Air Max Plus, a Tuned Air experience that offers premium stability and unbelievable cushioning. 
