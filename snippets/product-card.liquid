@@ -1,0 +1,26 @@
+<div class="swiper-slide max-w-(--size-312)">
+  <a href="{{ product.url }}" class="block">
+    <div class="aspect-square flex items-center justify-center rounded-xl overflow-hidden">
+      {% if product.featured_image %}
+        <img
+          src="{{ product.featured_image | image_url: width: 312 }}"
+          alt="{{ product.featured_image.alt | escape }}"
+          width="312"
+          height="312"
+          loading="lazy"
+          class="w-full h-full object-contain"
+        >
+      {% endif %}
+    </div>
+
+    <div class="mt-4">
+      <p>
+        {{ product.title }}
+      </p>
+
+      <p class="mt-2 text-gray">
+        {{ product.price | money }}
+      </p>
+    </div>
+  </a>
+</div>

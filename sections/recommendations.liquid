@@ -1,50 +1,31 @@
 <script src="{{ 'recommendations.js' | asset_url }}" defer></script>
 
-
 {% assign collection = section.settings.collection %}
 
 {% if collection %}
 <section class="py-10">
-  <div class="max-w-[1320px] mx-auto px-4">
-    <h2 class="text-center text-[30px] font-normal mb-10">
-      {{ section.settings.heading }}
-    </h2>
+  <div class="container">
+
+    {% if section.settings.heading != blank %}
+      <h2 class="text-center text-3xl mb-10">
+        {{ section.settings.heading }}
+      </h2>
+    {% endif %}
 
     <div class="relative">
       <div class="swiper recommendations-swiper">
         <div class="swiper-wrapper">
-          {% for product in collection.products limit: 5 %}
-            <div class="swiper-slide max-w-[312px]">
-              <a href="{{ product.url }}" class="block p-2">
-                <div class="aspect-square flex items-center justify-center bg-[#f6f6f6] rounded-xl overflow-hidden">
-                  {% if product.featured_image %}
-                    <img
-                      src="{{ product.featured_image | image_url: width: 312 }}"
-                      alt="{{ product.featured_image.alt | escape }}"
-                      width="312"
-                      height="312"
-                      loading="lazy"
-                      class="w-full h-full object-contain"
-                    >
-                  {% endif %}
-                </div>
 
-                <div class="mt-4">
-                  <p class="text-[16px] font-normal">
-                    {{ product.title }}
-                  </p>
-                  <p class="mt-1 text-[16px] text-neutral-500">
-                    {{ product.price | money }}
-                  </p>
-                </div>
-              </a>
-            </div>
+          {% for product in collection.products limit: 5 %}
+            {% render 'product-card', product: product %}
           {% endfor %}
+
         </div>
       </div>
 
       <button
-        class="recommendations-prev hidden md:flex absolute -left-3 top-40 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white border border-gray-200 items-center justify-center cursor-pointer"
+        type="button"
+        class="recommendations-prev hidden md:flex absolute -left-5 top-40 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white border border-stroke items-center justify-center"
         aria-label="Previous slide"
       >
         <svg class="w-4 h-4">
@@ -53,13 +34,15 @@
       </button>
 
       <button
-        class="recommendations-next hidden md:flex absolute -right-3 top-40 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white border border-gray-200 items-center justify-center cursor-pointer"
+        type="button"
+        class="recommendations-next hidden md:flex absolute -right-5 top-40 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white border border-stroke items-center justify-center"
         aria-label="Next slide"
       >
         <svg class="w-4 h-4">
           <use href="{{ 'sprite.svg' | asset_url }}#arrow-right"></use>
         </svg>
       </button>
+
     </div>
   </div>
 </section>
