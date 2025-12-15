@@ -17,7 +17,7 @@
         <div class="swiper-wrapper">
 
           {% for product in collection.products limit: 5 %}
-            {% render 'product-card', product: product %}
+            {% render 'recommendations-card', product: product %}
           {% endfor %}
 
         </div>
@@ -25,20 +25,20 @@
 
       <button
         type="button"
-        class="recommendations-prev hidden md:flex absolute -left-5 top-40 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white border border-stroke items-center justify-center"
+        class="recommendations-prev hidden md:flex absolute -left-5 top-40 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white border border-stroke items-center justify-center text-dark hover:bg-dark hover:text-white transition cursor-pointer"
         aria-label="Previous slide"
       >
-        <svg class="w-4 h-4">
+        <svg class="w-4 h-4 fill-current">
           <use href="{{ 'sprite.svg' | asset_url }}#arrow-left"></use>
         </svg>
       </button>
 
       <button
         type="button"
-        class="recommendations-next hidden md:flex absolute -right-5 top-40 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white border border-stroke items-center justify-center"
+        class="recommendations-next hidden md:flex absolute -right-5 top-40 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white border border-stroke items-center justify-center text-dark hover:bg-dark hover:text-white transition cursor-pointer"
         aria-label="Next slide"
       >
-        <svg class="w-4 h-4">
+        <svg class="w-4 h-4 fill-current">
           <use href="{{ 'sprite.svg' | asset_url }}#arrow-right"></use>
         </svg>
       </button>

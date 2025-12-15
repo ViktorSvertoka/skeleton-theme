@@ -1,18 +1,5 @@
 @import "tailwindcss";
 
-@layer base {
-  body {
-    font-weight: 400;
-    font-size: 16px;
-  }
-
-  button,
-  [role="button"],
-  a {
-    cursor: pointer;
-  }
-}
-
 @theme {
   --color-dark: #111111;
   --color-white: #ffffff;
@@ -26,6 +13,20 @@
   --size-312: 312px;
   --size-480: 480px;
   --size-612: 612px;
+}
+
+@layer base {
+  body {
+    font-weight: 400;
+    font-size: var(--size-16);
+    color: var(--color-dark);
+  }
+
+  button,
+  [role="button"],
+  a {
+    cursor: pointer;
+  }
 }
 
 @utility container {

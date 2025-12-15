@@ -1,0 +1,39 @@
+<div class="swiper-slide">
+  <div class="border border-stroke rounded-lg p-6 bg-white flex flex-col h-full">
+
+    <div class="flex mb-4">
+      {% for i in (1..review.rating) %}
+        <svg class="w-6 h-6 fill-current">
+          <use href="{{ 'sprite.svg' | asset_url }}#star"></use>
+        </svg>
+      {% endfor %}
+    </div>
+
+    <p class="leading-6 mb-6 flex-1">
+      {{ review.text }}
+    </p>
+
+    <div class="flex items-center gap-3 mt-4">
+      {% if review.avatar %}
+        <img
+          src="{{ review.avatar }}"
+          alt="{{ review.name | escape }}"
+          loading="lazy"
+          class="rounded-full object-cover"
+          width="52"
+          height="52"
+        >
+      {% endif %}
+
+      <div class="flex flex-col">
+        <h3 class="font-medium">
+          {{ review.name }}
+        </h3>
+        <p class="text-gray">
+          {{ review.location }}
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>

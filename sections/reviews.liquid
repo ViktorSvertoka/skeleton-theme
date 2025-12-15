@@ -1,83 +1,82 @@
 <script src="{{ 'reviews.js' | asset_url }}" defer></script>
 
-<section class="max-w-[1320px] mx-auto px-4 lg:px-0 pt-10 pb-20" data-reviews-section>
-  {% liquid
-    assign target_product = product | default: section.settings.product
-    if target_product
-      assign reviews_field = target_product.metafields.custom.reviews_json
-      if reviews_field.value != blank
-        assign reviews = reviews_field.value
-      elsif reviews_field != blank
-        assign reviews = reviews_field | parse_json
+<section class="pt-10 pb-20" data-reviews-section>
+  <div class="container">
+
+    {% liquid
+      assign target_product = product | default: section.settings.product
+
+      if target_product
+        assign reviews_field = target_product.metafields.custom.reviews_json
+
+        if reviews_field.value != blank
+          assign reviews = reviews_field.value
+        elsif reviews_field != blank
+          assign reviews = reviews_field
+        endif
       endif
-    endif
-  %}
-  {% if target_product == blank %}
-    <p class="text-center text-gray">Select a product for this section to display reviews.</p>
-  {% elsif reviews != blank %}
-    <h2 class="text-center text-[30px] font-normal text-dark mb-10">
-      Reviews
-    </h2>
-    <div class="reviews-slider" data-reviews-slider>
-      <div class="swiper" data-reviews-swiper>
-        <div class="swiper-wrapper">
-          {% for review in reviews %}
-            <div class="swiper-slide">
-              <div class="border border-stroke rounded-lg p-6 bg-white flex flex-col h-full">
-                <div class="flex mb-4">
-                  {% for i in (1..review.rating) %}
-                    <svg class="w-6 h-6 text-dark fill-current">
-                      <use href="{{ 'sprite.svg' | asset_url }}#star"></use>
-                    </svg>
-                  {% endfor %}
-                </div>
-                <p class="text-[16px] text-dark leading-6 mb-6 flex-1">
-                  {{ review.text }}
-                </p>
-                <div class="flex items-center gap-3 mt-4">
-                  {% if review.avatar %}
-                    <img
-                      src="{{ review.avatar }}"
-                      alt="{{ review.name | escape }}"
-                      loading="lazy"
-                      class="w-13 h-13 rounded-full object-cover"
-                      width="40"
-                      height="40"
-                    >
-                  {% endif %}
-                  <div class="flex flex-col">
-                    <span class="text-[16px] font-medium text-dark">
-                      {{ review.name }}
-                    </span>
-                    <span class="text-[16px] text-gray">
-                      {{ review.location }}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          {% endfor %}
+    %}
+
+    {% if target_product == blank %}
+      <p class="text-center text-gray">
+        Select a product for this section to display reviews.
+      </p>
+
+    {% elsif reviews != blank %}
+      <h2 class="text-center text-3xl mb-10">
+        Reviews
+      </h2>
+
+      <div class="reviews-slider" data-reviews-slider>
+        <div class="swiper" data-reviews-swiper>
+          <div class="swiper-wrapper">
+
+            {% for review in reviews %}
+              {% render 'review-card', review: review %}
+            {% endfor %}
+
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between mt-6 gap-4">
+          <div
+            class="swiper-pagination static! w-auto!"
+            data-reviews-pagination
+          ></div>
+
+          <div class="flex gap-2">
+            <button
+              type="button"
+              class="w-10 h-10 rounded-full border border-stroke flex items-center justify-center text-dark hover:bg-dark hover:text-white transition"
+              data-reviews-prev
+              aria-label="Previous review"
+            >
+              <svg class="w-4 h-4 fill-current">
+                <use href="{{ 'sprite.svg' | asset_url }}#arrow-left"></use>
+              </svg>
+            </button>
+
+            <button
+              type="button"
+              class="w-10 h-10 rounded-full border border-stroke flex items-center justify-center text-dark hover:bg-dark hover:text-white transition"
+              data-reviews-next
+              aria-label="Next review"
+            >
+              <svg class="w-4 h-4 fill-current">
+                <use href="{{ 'sprite.svg' | asset_url }}#arrow-right"></use>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
-      <div class="flex items-center justify-between mt-6 gap-4">
-        <div class="swiper-pagination static! w-auto!" data-reviews-pagination></div>
-        <div class="flex gap-2">
-          <button type="button" class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-dark hover:bg-dark hover:text-white transition cursor-pointer" data-reviews-prev aria-label="Previous review">
-            <svg class="w-4 h-4 fill-current">
-    <use href="{{ 'sprite.svg' | asset_url }}#arrow-left"></use>
-  </svg>
-          </button>
-          <button type="button" class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-dark hover:bg-dark hover:text-white transition cursor-pointer" data-reviews-next aria-label="Next review">
-            <svg class="w-4 h-4 fill-current">
-    <use href="{{ 'sprite.svg' | asset_url }}#arrow-right"></use>
-  </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  {% else %}
-    <p class="text-center text-gray">No reviews yet...</p>
-  {% endif %}
+
+    {% else %}
+      <p class="text-center text-gray">
+        No reviews yet...
+      </p>
+    {% endif %}
+
+  </div>
 </section>
 
 {% schema %}
