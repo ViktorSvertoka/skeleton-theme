@@ -1,0 +1,33 @@
+{% liquid
+  assign column_title = title | default: ''
+  assign column_links = links | default: empty
+%}
+
+<div class="w-full border-t border-stroke last:border-b md:border md:border-stroke md:px-2.5 xl:border-none xl:px-0 xl:last:border-b-0">
+  <details class="footer__details xl:open">
+    <summary class="flex w-full items-center justify-between gap-4 py-4 xl:py-2 text-left bg-transparent border-0 cursor-pointer list-none focus:outline-none focus-visible:outline-none xl:cursor-default xl:pointer-events-none xl:block">
+      {% if column_title != blank %}
+        <span class="block font-medium">{{ column_title }}</span>
+      {% endif %}
+      <svg class="h-3.5 w-3.5 shrink-0 xl:hidden">
+        <use class="footer__use" href="{{ 'sprite.svg' | asset_url }}#arrow-down"></use>
+      </svg>
+    </summary>
+
+    {% if column_links and column_links.size > 0 %}
+      <ul class="mb-4 space-y-3.5 md:mb-0">
+        {% for link in column_links %}
+          {% liquid
+            assign link_label = link.label | default: link
+            assign link_url = link.url | default: '#'
+          %}
+          <li>
+            <a href="{{ link_url }}" class="text-sm text-gray transition-colors duration-300 hover:text-dark">
+              {{ link_label }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </details>
+</div>
