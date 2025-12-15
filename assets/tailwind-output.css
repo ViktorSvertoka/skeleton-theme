@@ -415,9 +415,6 @@
   .max-w-\(--size-312\) {
     max-width: var(--size-312);
   }
-  .max-w-\[312px\] {
-    max-width: 312px;
-  }
   .max-w-\[640px\] {
     max-width: 640px;
   }
@@ -1078,11 +1075,6 @@
       align-items: flex-start;
     }
   }
-  .lg\:px-0 {
-    @media (width >= 64rem) {
-      padding-inline: calc(var(--spacing) * 0);
-    }
-  }
   .lg\:py-\[156px\] {
     @media (width >= 64rem) {
       padding-block: 156px;
@@ -1146,7 +1138,8 @@
 @layer base {
   body {
     font-weight: 400;
-    font-size: 16px;
+    font-size: var(--size-16);
+    color: var(--color-dark);
   }
   button, [role="button"], a {
     cursor: pointer;
