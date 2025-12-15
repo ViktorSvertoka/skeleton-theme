@@ -9,16 +9,22 @@
   --color-old-price: #c62828;
 
   --size-16: 16px;
+  --size-24: 24px;
   --size-30: 30px;
+  --size-126: 126px;
+  --size-156: 156px;
   --size-312: 312px;
   --size-480: 480px;
+  --size-500: 500px;
   --size-612: 612px;
+  --size-648: 648px;
 }
 
 @layer base {
   body {
     font-weight: 400;
     font-size: var(--size-16);
+    line-height: var(--size-24);
     color: var(--color-dark);
   }
 

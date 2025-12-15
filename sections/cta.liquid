@@ -1,33 +1,35 @@
 {% assign background_image = section.settings.image | image_url: width: 1440 %}
 
 <section
-  class="w-full flex justify-center bg-cover bg-center"
+  class="w-full bg-cover bg-center"
   {% if section.settings.image %}
     style="background-image: url({{ background_image }});"
   {% endif %}
 >
-  <div class="w-full max-w-[1440px] h-[500px] grid grid-cols-1 lg:grid-cols-2 items-start gap-10 px-4 py-[126px] lg:py-[156px]">
-    <div>
-      {% if section.settings.heading != blank %}
-        <h2 class="font-normal text-[30px] leading-9 text-white max-w-[648px] mb-4">
-          {{ section.settings.heading }}
-        </h2>
-      {% endif %}
+  <div class="container">
+    <div class="h-(--size-500) grid grid-cols-1 lg:grid-cols-2 items-start gap-10 py-(--size-126) lg:py-(--size-156)">
+      <div>
+        {% if section.settings.heading != blank %}
+          <h2 class="text-3xl leading-9 text-white max-w-(--size-648) mb-4">
+            {{ section.settings.heading }}
+          </h2>
+        {% endif %}
 
-      {% if section.settings.text != blank %}
-        <p class="font-normal text-[16px] leading-6 text-white max-w-[648px] mb-8">
-          {{ section.settings.text }}
-        </p>
-      {% endif %}
+        {% if section.settings.text != blank %}
+          <p class="text-white max-w-(--size-648) mb-8">
+            {{ section.settings.text }}
+          </p>
+        {% endif %}
 
-      {% if section.settings.button_label != blank %}
-        <a
-          href="{{ section.settings.button_link }}"
-          class="inline-flex items-center justify-center bg-white text-black font-normal text-[16px] leading-6 px-8 py-4 rounded-lg transition hover:bg-gray-100"
-        >
-          {{ section.settings.button_label }}
-        </a>
-      {% endif %}
+        {% if section.settings.button_label != blank %}
+          <a
+            href="{{ section.settings.button_link }}"
+            class="inline-flex items-center justify-center bg-white px-8 py-4 rounded-lg transition hover:bg-gray-light"
+          >
+            {{ section.settings.button_label }}
+          </a>
+        {% endif %}
+      </div>
     </div>
   </div>
 </section>
