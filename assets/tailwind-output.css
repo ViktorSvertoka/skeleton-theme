@@ -14,7 +14,6 @@
     --color-gray-500: oklch(55.1% 0.027 264.364);
     --color-gray-600: oklch(44.6% 0.03 256.802);
     --color-gray-900: oklch(21% 0.034 264.665);
-    --color-neutral-500: oklch(55.6% 0 0);
     --color-black: #000;
     --color-white: #ffffff;
     --spacing: 0.25rem;
@@ -28,6 +27,8 @@
     --text-lg--line-height: calc(1.75 / 1.125);
     --text-2xl: 1.5rem;
     --text-2xl--line-height: calc(2 / 1.5);
+    --text-3xl: 1.875rem;
+    --text-3xl--line-height: calc(2.25 / 1.875);
     --font-weight-normal: 400;
     --font-weight-medium: 500;
     --tracking-wide: 0.025em;
@@ -47,6 +48,7 @@
     --color-gray-light: #cacacb;
     --color-stroke: #ebebeb;
     --size-16: 16px;
+    --size-312: 312px;
     --size-480: 480px;
     --size-612: 612px;
   }
@@ -230,14 +232,14 @@
   .top-40 {
     top: calc(var(--spacing) * 40);
   }
-  .-right-3 {
-    right: calc(var(--spacing) * -3);
+  .-right-5 {
+    right: calc(var(--spacing) * -5);
   }
   .right-4 {
     right: calc(var(--spacing) * 4);
   }
-  .-left-3 {
-    left: calc(var(--spacing) * -3);
+  .-left-5 {
+    left: calc(var(--spacing) * -5);
   }
   .left-4 {
     left: calc(var(--spacing) * 4);
@@ -287,8 +289,8 @@
   .mt-0\.5 {
     margin-top: calc(var(--spacing) * 0.5);
   }
-  .mt-1 {
-    margin-top: calc(var(--spacing) * 1);
+  .mt-2 {
+    margin-top: calc(var(--spacing) * 2);
   }
   .mt-4 {
     margin-top: calc(var(--spacing) * 4);
@@ -409,6 +411,9 @@
   }
   .w-full {
     width: 100%;
+  }
+  .max-w-\(--size-312\) {
+    max-width: var(--size-312);
   }
   .max-w-\[312px\] {
     max-width: 312px;
@@ -572,9 +577,6 @@
   .border-transparent {
     border-color: transparent;
   }
-  .bg-\[\#f6f6f6\] {
-    background-color: #f6f6f6;
-  }
   .bg-black {
     background-color: var(--color-black);
   }
@@ -610,9 +612,6 @@
   }
   .p-0 {
     padding: calc(var(--spacing) * 0);
-  }
-  .p-2 {
-    padding: calc(var(--spacing) * 2);
   }
   .p-4 {
     padding: calc(var(--spacing) * 4);
@@ -674,6 +673,10 @@
   .text-2xl {
     font-size: var(--text-2xl);
     line-height: var(--tw-leading, var(--text-2xl--line-height));
+  }
+  .text-3xl {
+    font-size: var(--text-3xl);
+    line-height: var(--tw-leading, var(--text-3xl--line-height));
   }
   .text-base {
     font-size: var(--text-base);
@@ -749,9 +752,6 @@
   }
   .text-gray-600 {
     color: var(--color-gray-600);
-  }
-  .text-neutral-500 {
-    color: var(--color-neutral-500);
   }
   .text-white {
     color: var(--color-white);
@@ -1141,6 +1141,15 @@
         border-bottom-width: 0px;
       }
     }
+  }
+}
+@layer base {
+  body {
+    font-weight: 400;
+    font-size: 16px;
+  }
+  button, [role="button"], a {
+    cursor: pointer;
   }
 }
 .reviews-slider .swiper {
