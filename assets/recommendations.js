@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const prevBtn = section.querySelector(".recommendations-prev");
   const nextBtn = section.querySelector(".recommendations-next");
 
+  const isMobile = window.matchMedia("(max-width: 767px)").matches;
+
   const updateNavVisibility = (swiper) => {
     if (swiper.isBeginning) {
       prevBtn.classList.add("opacity-0", "pointer-events-none");
@@ -24,6 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
     speed: 600,
     spaceBetween: 24,
     slidesPerView: "auto",
+
+    loop: isMobile,
 
     navigation: {
       prevEl: prevBtn,
