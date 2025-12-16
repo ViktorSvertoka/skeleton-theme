@@ -4,115 +4,43 @@
 <script src="{{ 'main-product.js' | asset_url }}" defer></script>
 
 <section class="product">
-  <div class="mx-auto max-w-[1320px] px-4">
+  <div class="container">
 
-    <nav class="mb-4 text-sm text-gray-500">
-      <a href="{{ routes.root_url }}" class="hover:text-black">Home</a>
-      <span class="mx-1">/</span>
-      <span class="text-black">{{ product.title }}</span>
-    </nav>
+     {% render 'product-breadcrumbs', product: product %}
 
     <div class="product__content flex flex-col items-center gap-8 lg:flex-row lg:items-start">
 
-      <div class="product__gallery flex gap-4 max-w-[640px]">
+      {% render 'product-gallery', product: product %}
 
-        <div class="product__thumbs swiper hidden lg:block w-[88px]">
-          <div class="swiper-wrapper"></div>
-        </div>
+      <div class="product__info max-w-(--size-648)">
 
-        <div class="product__inner swiper relative flex-1 rounded-2xl bg-gray-100 p-6">
-
-          {% if product.tags contains 'highly-rated' %}
-            <div class="absolute left-4 top-4 z-10 flex items-center gap-1 rounded-full bg-white px-3 py-1 text-xs font-medium shadow">
-              <svg class="h-4 w-4">
-                <use href="{{ 'sprite.svg' | asset_url }}#star"></use>
-              </svg>
-              <span>Highly Rated</span>
-            </div>
-          {% endif %}
-
-          <div class="swiper-wrapper"></div>
-        </div>
-
-      </div>
-
-      <div class="product__info max-w-[640px]">
-
-        <h1 class="mb-2 text-2xl font-medium">
+        <h1 class="mb-2 text-3xl font-medium">
           {{ product.title }}
         </h1>
 
         <div class="mb-3 flex items-center gap-2 text-sm">
           <div class="flex items-center gap-0.5">
             {% for i in (1..5) %}
-              <svg class="h-4 w-4">
+              <svg class="h-6 w-6">
                 <use href="{{ 'sprite.svg' | asset_url }}#star"></use>
               </svg>
             {% endfor %}
           </div>
-          <span class="text-gray-500">5.0</span>
+          <span class="text-gray">5.0</span>
         </div>
 
-        <p class="mb-4 text-sm leading-relaxed text-gray-600">
+        <p class="mb-4 text-sm leading-relaxed text-gray">
           {{ product.description | strip_html }}
         </p>
 
+        {% render 'product-price', product: product %}
+
+        {% render 'product-color-swatches', product: product %}
+
+        {% render 'product-size-selector', product: product %}
+
         {% assign v = product.selected_or_first_available_variant %}
-        <div class="mb-6 flex items-center gap-3">
-          <span class="product__compare text-sm text-gray-400 line-through"{% if v.compare_at_price <= v.price %} style="display:none"{% endif %}>
-            {{ v.compare_at_price | money }}
-          </span>
-          <span class="product__price text-lg font-medium">
-            {{ v.price | money }}
-          </span>
-        </div>
 
-        <ul class="mb-6 flex gap-3">
-          {% assign used_colors = '' %}
-          {% for variant in product.variants %}
-            {% assign color = variant.option1 | downcase %}
-            {% unless used_colors contains color %}
-              {% assign used_colors = used_colors | append: color | append: ',' %}
-              <li>
-                <button
-                  type="button"
-                  class="product__button h-[88px] w-[88px] overflow-hidden rounded-lg border border-transparent bg-gray-100 transition hover:border-black"
-                  data-color="{{ color }}"
-                  data-variant-id="{{ variant.id }}"
-                >
-                  {% if variant.featured_image %}
-                    {{
-                      variant.featured_image
-                      | image_url: width: 120
-                      | image_tag:
-                        class: 'h-full w-full object-cover',
-                        loading: 'lazy'
-                    }}
-                  {% endif %}
-                </button>
-              </li>
-            {% endunless %}
-          {% endfor %}
-        </ul>
-
-        <div class="mb-2 flex items-center justify-between">
-          <span class="text-sm font-medium">Select Size:</span>
-          <a href="#" class="text-sm underline">Size Guide</a>
-        </div>
-
-        <ul class="mb-6 grid grid-cols-3 gap-3">
-          {% for value in product.options_by_name['Shoe size'].values %}
-            <li>
-              <button
-                type="button"
-                class="product__sizes-btn h-11 w-full rounded-lg border text-sm transition hover:border-black"
-                data-size="{{ value }}"
-              >
-                UK {{ value }}
-              </button>
-            </li>
-          {% endfor %}
-        </ul>
 
         {% form 'product', product %}
           <input
@@ -123,52 +51,16 @@
           >
           <button
             type="submit"
-            class="mb-4 h-12 w-full rounded-xl bg-black text-sm font-medium text-white transition hover:bg-gray-900"
+            class="mb-4 flex items-center justify-center h-14 w-full rounded-lg bg-dark px-8 text-sm font-medium text-white transition-colors hover:bg-gray"
           >
-            Add To Bag
+          Add To Bag
           </button>
+
         {% endform %}
 
-        <ul class="mb-4 space-y-3 text-sm text-gray-600">
-  <li class="flex items-start gap-2">
-    <svg
-      class="mt-0.5 h-4 w-4 shrink-0"
-      aria-hidden="true"
-    >
-      <use href="{{ 'sprite.svg' | asset_url }}#shipping"></use>
-    </svg>
-    <p class="leading-snug">
-      Free U.S. Shipping Over $150
-    </p>
-  </li>
+        {% render 'product-trust-info' %}
 
-  <li class="flex items-start gap-2">
-    <svg
-      class="mt-0.5 h-4 w-4 shrink-0"
-      aria-hidden="true"
-    >
-      <use href="{{ 'sprite.svg' | asset_url }}#checkout"></use>
-    </svg>
-    <p class="leading-snug">
-      Safe &amp; Secure Checkout
-    </p>
-  </li>
-
-  <li class="flex items-start gap-2">
-    <svg
-      class="mt-0.5 h-4 w-4 shrink-0"
-      aria-hidden="true"
-    >
-      <use href="{{ 'sprite.svg' | asset_url }}#afterpay"></use>
-    </svg>
-    <p class="leading-snug">
-      Afterpay available at checkout
-    </p>
-  </li>
-</ul>
-
-
-        <p class="text-sm leading-relaxed text-gray-600">
+        <p class="text-sm leading-relaxed text-gray">
           Let your attitude have the edge in your Nike Air Max Plus, a Tuned Air experience that offers premium stability and unbelievable cushioning. 
         </p>
 
@@ -184,8 +76,8 @@
       {% for media in product.media %}
         {% if media.media_type == 'image' and media.alt contains 'color:' %}
           {
-            src: "{{ media | image_url: width: 1200 }}",
-            thumb: "{{ media | image_url: width: 200 }}",
+            src: "{{ media | image_url: width: 536 }}",
+            thumb: "{{ media | image_url: width: 88 }}",
             color: "{{ media.alt | replace: 'color:', '' | downcase }}"
           }{% unless forloop.last %},{% endunless %}
         {% endif %}

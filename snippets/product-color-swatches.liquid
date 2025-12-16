@@ -1,0 +1,27 @@
+<ul class="mb-6 flex gap-3">
+    {% assign used_colors = '' %}
+    {% for variant in product.variants %}
+      {% assign color = variant.option1 | downcase %}
+      {% unless used_colors contains color %}
+        {% assign used_colors = used_colors | append: color | append: ',' %}
+        <li>
+          <button
+            type="button"
+            class="product__button h-(--size-88) w-(--size-88) overflow-hidden rounded-lg border border-transparent transition hover:border-dark"
+            data-color="{{ color }}"
+            data-variant-id="{{ variant.id }}"
+          >
+            {% if variant.featured_image %}
+              {{
+                variant.featured_image
+                | image_url: width: 120
+                | image_tag:
+                  class: 'h-full w-full object-cover',
+                  loading: 'lazy'
+              }}
+            {% endif %}
+          </button>
+        </li>
+      {% endunless %}
+    {% endfor %}
+</ul>

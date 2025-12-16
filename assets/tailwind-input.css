@@ -11,11 +11,15 @@
   --size-16: 16px;
   --size-24: 24px;
   --size-30: 30px;
+  --size-52: 52px;
+  --size-88: 88px;
   --size-126: 126px;
   --size-156: 156px;
   --size-312: 312px;
+  --size-343: 343px;
   --size-480: 480px;
   --size-500: 500px;
+  --size-536: 536px;
   --size-612: 612px;
   --size-648: 648px;
 }
@@ -44,6 +48,14 @@
   @media (min-width: 1440px) {
     padding-inline: 60px;
   }
+}
+
+.product__sizes-btn.is-active {
+  border-color: var(--color-dark);
+}
+
+.product__button.is-active {
+  outline: 1px solid var(--color-dark);
 }
 
 .reviews-slider .swiper {

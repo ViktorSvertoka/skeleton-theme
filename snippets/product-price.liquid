@@ -1,0 +1,9 @@
+  {% assign v = product.selected_or_first_available_variant %}
+        <div class="mb-6 flex items-center gap-3">
+          <p class="product__compare text-sm text-gray line-through"{% if v.compare_at_price <= v.price %} style="display:none"{% endif %}>
+            {{ v.compare_at_price | money }}
+          </p>
+          <p class="product__price text-lg font-medium">
+            {{ v.price | money }}
+          </p>
+        </div>
