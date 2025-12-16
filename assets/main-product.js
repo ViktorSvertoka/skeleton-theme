@@ -8,11 +8,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const thumbsEl = root.querySelector(".product__thumbs");
   const mainEl = root.querySelector(".product__inner");
 
+  const isMobile = window.matchMedia("(max-width: 767px)").matches;
+
   const thumbsSwiper = new Swiper(thumbsEl, {
     slidesPerView: 4,
     spaceBetween: 12,
-    freeMode: true,
+    freeMode: !isMobile,
     watchSlidesProgress: true,
+
+    loop: isMobile,
+
+    initialSlide: 0,
+    centeredSlides: false,
+    slidesOffsetBefore: 0,
+    slidesOffsetAfter: 0,
+
     breakpoints: {
       768: {
         slidesPerView: 5,
@@ -66,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     mainSwiper.removeAllSlides();
     mainSwiper.appendSlide(`
-      <div class="swiper-slide product__main-slide flex items-center justify-center">
+      <div class="swiper-slide product__main-slide">
         <img
           src="${img.src}"
           alt="Model variants"
@@ -86,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     currentImages.forEach((img, index) => {
       thumbsSwiper.appendSlide(`
-        <div class="swiper-slide product__thumb-slide h-(--size-88)! w-(--size-88)! flex items-center justify-center" 
+        <div class="swiper-slide product__thumb-slide h-(--size-88)! w-(--size-88)!" 
           data-index="${index}">
           <img
             role="button"
@@ -99,6 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     thumbsSwiper.update();
+    thumbsSwiper.slideTo(0, 0);
     renderMain(currentImages[0]);
   }
 
