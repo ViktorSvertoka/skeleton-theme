@@ -9,11 +9,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const mainEl = root.querySelector(".product__inner");
 
   const thumbsSwiper = new Swiper(thumbsEl, {
-    slidesPerView: "auto",
-    spaceBetween: 16,
+    slidesPerView: 4,
+    spaceBetween: 12,
     freeMode: true,
     watchSlidesProgress: true,
     breakpoints: {
+      768: {
+        slidesPerView: 5,
+        spaceBetween: 12,
+      },
       1280: {
         slidesPerView: 5,
         direction: "vertical",
@@ -24,8 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const mainSwiper = new Swiper(mainEl, {
     slidesPerView: 1,
-    thumbs: { swiper: thumbsSwiper },
     grabCursor: true,
+    allowTouchMove: false,
   });
 
   const colorButtons = [...root.querySelectorAll(".product__button")];
@@ -35,32 +39,67 @@ document.addEventListener("DOMContentLoaded", () => {
   const priceEl = root.querySelector(".product__price");
   const compareEl = root.querySelector(".product__compare");
 
-  let activeColor = colorButtons[0]?.dataset.color;
-  let activeSize = sizeButtons[0]?.dataset.size;
+  if (!colorButtons.length || !sizeButtons.length) return;
+
+  let activeColor =
+    colorButtons.find((b) => b.classList.contains("is-active"))?.dataset
+      .color || colorButtons[0].dataset.color;
+
+  let activeSize =
+    sizeButtons.find((b) => b.classList.contains("is-active"))?.dataset.size ||
+    sizeButtons[0].dataset.size;
+
+  let currentImages = [];
+
+  function setActive(buttons, activeBtn) {
+    buttons.forEach((btn) => {
+      btn.classList.remove("is-active");
+      btn.setAttribute("aria-pressed", "false");
+    });
+
+    activeBtn.classList.add("is-active");
+    activeBtn.setAttribute("aria-pressed", "true");
+  }
+
+  function renderMain(img) {
+    if (!img) return;
+
+    mainSwiper.removeAllSlides();
+    mainSwiper.appendSlide(`
+      <div class="swiper-slide product__main-slide flex items-center justify-center">
+        <img
+          src="${img.src}"
+          alt="Model variants"
+          class="product__image w-(--size-343) h-(--size-343) object-cover lg:w-(--size-536) lg:h-(--size-536) rounded-lg"
+        />
+      </div>
+    `);
+
+    mainSwiper.update();
+    mainSwiper.slideTo(0, 0);
+  }
 
   function renderGallery(color) {
-    const images = data.media.filter((m) => m.color === color).slice(0, 5);
+    currentImages = data.media.filter((m) => m.color === color).slice(0, 5);
 
     thumbsSwiper.removeAllSlides();
-    mainSwiper.removeAllSlides();
 
-    images.forEach((img) => {
-      mainSwiper.appendSlide(`
-        <div class="swiper-slide product__main-slide">
-          <img src="${img.src}" class="product__image w-[536px] h-[536px]" />
-        </div>
-      `);
-
+    currentImages.forEach((img, index) => {
       thumbsSwiper.appendSlide(`
-        <div class="swiper-slide product__thumb-slide">
-          <img src="${img.thumb}" class="product__image w-[88px] h-[88px]" />
+        <div class="swiper-slide product__thumb-slide h-(--size-88)! w-(--size-88)! flex items-center justify-center" 
+          data-index="${index}">
+          <img
+            role="button"
+            src="${img.thumb}"
+            alt="Model variants"
+            class="product__image w-(--size-88) h-(--size-88) object-cover rounded-lg"
+          />
         </div>
       `);
     });
 
-    mainSwiper.update();
     thumbsSwiper.update();
-    mainSwiper.slideTo(0);
+    renderMain(currentImages[0]);
   }
 
   function findVariant() {
@@ -84,26 +123,42 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  colorButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      colorButtons.forEach((b) => b.classList.remove("product__selected"));
-      btn.classList.add("product__selected");
+  thumbsSwiper.on("click", () => {
+    const idx = thumbsSwiper.clickedIndex;
+    if (idx == null) return;
+    renderMain(currentImages[idx]);
+  });
 
+  colorButtons.forEach((btn) => {
+    btn.setAttribute("aria-pressed", "false");
+
+    btn.addEventListener("click", () => {
+      setActive(colorButtons, btn);
       activeColor = btn.dataset.color;
+
       renderGallery(activeColor);
       updateVariant();
     });
   });
 
   sizeButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      sizeButtons.forEach((b) => b.classList.remove("product__selected"));
-      btn.classList.add("product__selected");
+    btn.setAttribute("aria-pressed", "false");
 
+    btn.addEventListener("click", () => {
+      setActive(sizeButtons, btn);
       activeSize = btn.dataset.size;
+
       updateVariant();
     });
   });
+
+  const initialColorBtn = colorButtons.find(
+    (b) => b.dataset.color === activeColor
+  );
+  const initialSizeBtn = sizeButtons.find((b) => b.dataset.size === activeSize);
+
+  if (initialColorBtn) setActive(colorButtons, initialColorBtn);
+  if (initialSizeBtn) setActive(sizeButtons, initialSizeBtn);
 
   renderGallery(activeColor);
   updateVariant();

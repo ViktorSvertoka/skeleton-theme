@@ -1,0 +1,23 @@
+<div class="product__gallery flex gap-6 max-w-(--size-648) flex-col lg:flex-row">
+  <div
+  class="product__thumbs swiper order-2 w-full overflow-hidden lg:order-1 lg:w-(--size-88) flex lg:flex-col"
+  >
+  <div
+  class="swiper-wrapper flex gap-3 lg:flex-col lg:justify-between lg:h-full"
+  >
+  </div>
+</div>
+<div class="product__inner swiper relative order-1">
+
+    {% if product.tags contains 'highly-rated' %}
+      <div class="absolute left-4 top-4 z-10 flex items-center gap-1 bg-white px-2 py-1 text-xs font-medium">
+        <svg class="h-6 w-6">
+          <use href="{{ 'sprite.svg' | asset_url }}#star"></use>
+        </svg>
+        <span>Highly Rated</span>
+      </div>
+    {% endif %}
+
+    <div class="swiper-wrapper"></div>
+  </div>
+</div>

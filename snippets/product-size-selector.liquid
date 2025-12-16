@@ -1,0 +1,19 @@
+<div class="mb-2 flex items-center justify-between">
+          <span class="text-sm font-medium">Select Size:</span>
+          <a href="#" class="text-sm underline">Size Guide</a>
+        </div>
+
+        <ul class="mb-6 grid grid-cols-3 gap-3">
+  {% for value in product.options_by_name['Shoe size'].values %}
+    <li>
+      <button
+        type="button"
+        class="product__sizes-btn flex items-center justify-center h-(--size-52) w-full rounded-lg border border-stroke bg-white px-4 text-sm font-medium text-dark transition-colors hover:border-dark focus:outline-none"
+        data-size="{{ value }}"
+        aria-pressed="false"
+      >
+        UK {{ value }}
+      </button>
+    </li>
+  {% endfor %}
+</ul>
