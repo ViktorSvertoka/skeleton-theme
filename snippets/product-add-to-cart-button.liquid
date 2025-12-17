@@ -1,7 +1,7 @@
 {% assign button_label = label | default: 'Add to cart' %}
 <button
   type="submit"
-  class="product__add-to-cart mb-4 flex h-14 w-full items-center justify-center rounded-lg bg-dark px-8 text-sm font-medium text-white transition-colors hover:bg-gray"
+  class="product__add-to-cart mb-4 flex h-14 w-full items-center justify-center rounded-lg bg-dark px-8 text-sm font-medium text-white transition-colors hover:bg-gray focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dark focus-visible:ring-offset-2"
 >
   {{ button_label }}
 </button>

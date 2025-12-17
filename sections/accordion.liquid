@@ -1,7 +1,9 @@
+<script src="{{ 'accordion.js' | asset_url }}" defer></script>
+
 {% assign product = section.settings.product | default: product %}
 
 {% if product %}
-<section class="product-accordion pt-8 pb-10">
+<section class="product-accordion pt-8 pb-10" data-product-accordion>
   <div class="container">
     <div class="w-full md:ml-auto md:mr-0 md:max-w-(--size-648) space-y-2">
 
@@ -16,7 +18,9 @@
             {% if size_fit != blank %}
               {% render 'accordion-item',
                 title: 'SIZE & FIT',
-                content: size_fit
+                content: size_fit,
+                index: forloop.index0,
+                section_id: section.id
               %}
             {% endif %}
 
@@ -24,7 +28,9 @@
             {% if product_notes != blank %}
               {% render 'accordion-item',
                 title: 'PRODUCT NOTES',
-                content: product_notes
+                content: product_notes,
+                index: forloop.index0,
+                section_id: section.id
               %}
             {% endif %}
 
@@ -32,7 +38,9 @@
             {% if delivery_returns != blank %}
               {% render 'accordion-item',
                 title: 'DELIVERY & RETURNS',
-                content: delivery_returns
+                content: delivery_returns,
+                index: forloop.index0,
+                section_id: section.id
               %}
             {% endif %}
 

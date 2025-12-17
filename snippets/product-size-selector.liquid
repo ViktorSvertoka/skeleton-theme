@@ -3,7 +3,14 @@
 
 <div class="mb-2 flex items-center justify-between">
           <span class="product__size-label text-sm font-medium">Select {{ size_option_label }}:</span>
-          <a href="#" class="text-sm underline">Size Guide</a>
+          <button
+            type="button"
+            class="text-sm underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-dark focus-visible:ring-offset-1"
+            data-size-guide-open
+            aria-haspopup="dialog"
+          >
+            Size Guide
+          </button>
         </div>
 
         <ul class="product__sizes-list mb-6 grid grid-cols-3 gap-3">
@@ -11,9 +18,10 @@
     <li>
       <button
         type="button"
-        class="product__sizes-btn flex items-center justify-center h-(--size-52) w-full rounded-lg border border-stroke bg-white px-4 text-sm font-medium text-dark transition-colors hover:border-dark focus:outline-none"
+        class="product__sizes-btn flex items-center justify-center h-(--size-52) w-full rounded-lg border border-stroke bg-white px-4 text-sm font-medium text-dark transition-colors hover:border-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dark focus-visible:ring-offset-2 data-[active=true]:border-dark data-[active=true]:text-dark"
         data-size="{{ value }}"
         aria-pressed="false"
+        data-active="false"
       >
         UK {{ value }}
       </button>

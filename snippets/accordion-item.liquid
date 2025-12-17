@@ -1,20 +1,37 @@
-<details class="group rounded-lg border border-stroke bg-white">
-  <summary
-    class="flex cursor-pointer items-center justify-between gap-4 p-4 list-none hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
+{% liquid
+  assign base_section_id = section_id | default: section.id
+  assign item_index = index | default: 0
+  assign trigger_id = 'accordion-trigger-' | append: base_section_id | append: '-' | append: item_index
+  assign panel_id = 'accordion-panel-' | append: base_section_id | append: '-' | append: item_index
+%}
+
+<div class="accordion-item rounded-lg border border-stroke bg-white">
+  <button
+    type="button"
+    class="accordion-trigger flex w-full items-center justify-between gap-4 p-4 text-left hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
+    id="{{ trigger_id }}"
+    aria-expanded="false"
+    aria-controls="{{ panel_id }}"
   >
-    <h3 class="text-(--size-16) font-medium tracking-wide uppercase">
+    <span class="text-(--size-16) font-medium tracking-wide uppercase">
       {{ title }}
-    </h3>
+    </span>
     <span class="relative h-4 w-4 shrink-0">
-      <svg class="absolute inset-0 h-4 w-4 transition-opacity duration-200 group-open:opacity-0">
+      <svg class="accordion-icon-plus absolute inset-0 h-4 w-4 transition-opacity duration-200">
         <use href="{{ 'sprite.svg' | asset_url }}#plus"></use>
       </svg>
-      <svg class="absolute inset-0 h-4 w-4 opacity-0 transition-opacity duration-200 group-open:opacity-100">
+      <svg class="accordion-icon-minus absolute inset-0 h-4 w-4 opacity-0 transition-opacity duration-200">
         <use href="{{ 'sprite.svg' | asset_url }}#minus"></use>
       </svg>
     </span>
-  </summary>
-  <div class="px-4 pb-4 text-sm leading-relaxed text-gray">
+  </button>
+  <div
+    id="{{ panel_id }}"
+    class="accordion-panel hidden px-4 pb-4 text-sm leading-relaxed text-gray"
+    role="region"
+    aria-labelledby="{{ trigger_id }}"
+    aria-hidden="true"
+  >
     {{ content | metafield_tag }}
   </div>
-</details>
+</div>

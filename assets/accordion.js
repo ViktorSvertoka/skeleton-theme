@@ -10,19 +10,20 @@ document.addEventListener("DOMContentLoaded", () => {
         const panelId = trigger.getAttribute("aria-controls");
         const panel = document.getElementById(panelId);
 
+        if (!panel) return;
+
         const plusIcon = trigger.querySelector(".accordion-icon-plus");
         const minusIcon = trigger.querySelector(".accordion-icon-minus");
 
-        trigger.setAttribute("aria-expanded", String(!isExpanded));
+        const nextState = !isExpanded;
+        trigger.setAttribute("aria-expanded", String(nextState));
 
-        panel.classList.toggle("hidden");
+        panel.classList.toggle("hidden", !nextState);
+        panel.setAttribute("aria-hidden", String(!nextState));
 
-        if (isExpanded) {
-          plusIcon.classList.remove("opacity-0");
-          minusIcon.classList.add("opacity-0");
-        } else {
-          plusIcon.classList.add("opacity-0");
-          minusIcon.classList.remove("opacity-0");
+        if (plusIcon && minusIcon) {
+          plusIcon.classList.toggle("opacity-0", nextState);
+          minusIcon.classList.toggle("opacity-0", !nextState);
         }
       });
     });

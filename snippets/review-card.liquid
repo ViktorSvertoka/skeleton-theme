@@ -1,12 +1,25 @@
 <div class="swiper-slide">
   <div class="border border-stroke rounded-lg p-6 bg-white flex flex-col h-full">
 
-    <div class="flex mb-4">
-      {% for i in (1..review.rating) %}
-        <svg class="w-6 h-6 fill-current">
-          <use href="{{ 'sprite.svg' | asset_url }}#star"></use>
-        </svg>
-      {% endfor %}
+    <div class="flex items-center justify-between mb-4 gap-4">
+      <div class="flex">
+        {% for i in (1..review.rating) %}
+          <svg class="w-6 h-6 fill-current">
+            <use href="{{ 'sprite.svg' | asset_url }}#star"></use>
+          </svg>
+        {% endfor %}
+      </div>
+
+      {% if review.date %}
+        <div class="flex items-center gap-2 text-xs uppercase tracking-wide text-gray">
+          <svg class="w-4 h-4">
+            <use href="{{ 'sprite.svg' | asset_url }}#calendar"></use>
+          </svg>
+          <time datetime="{{ review.date }}">
+            {{ review.date | date: "%b %d, %Y" }}
+          </time>
+        </div>
+      {% endif %}
     </div>
 
     <p class="leading-6 mb-6 flex-1">
@@ -18,10 +31,10 @@
         <img
           src="{{ review.avatar }}"
           alt="{{ review.name | escape }}"
-          loading="lazy"
           class="rounded-full object-cover"
           width="52"
           height="52"
+          loading="lazy"
         >
       {% endif %}
 

@@ -18,6 +18,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const variantInput = root.querySelector(".variant-id-input");
   const priceEl = root.querySelector(".product__price");
   const compareEl = root.querySelector(".product__compare");
+  const sizeGuideModal = root.querySelector("[data-size-guide]");
+  const sizeGuideOpenBtn = root.querySelector("[data-size-guide-open]");
+  const sizeGuideCloseBtn = sizeGuideModal?.querySelector(
+    "[data-size-guide-close]"
+  );
+  const sizeGuideOverlay = sizeGuideModal?.querySelector(
+    "[data-size-guide-overlay]"
+  );
+  const sizeGuideDialog = sizeGuideModal?.querySelector(
+    "[data-size-guide-dialog]"
+  );
 
   const colorButtons = [
     ...root.querySelectorAll(".product__button[data-product-id]"),
@@ -83,17 +94,20 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentImages = [];
   let sizeButtons = [];
   let activeSize = null;
+  let lastFocusedSizeGuideTrigger = null;
 
   function setActive(buttons, activeBtn) {
     buttons.forEach((btn) => {
       btn.classList.remove("is-active");
       btn.setAttribute("aria-pressed", "false");
+      btn.dataset.active = "false";
     });
 
     if (!activeBtn) return;
 
     activeBtn.classList.add("is-active");
     activeBtn.setAttribute("aria-pressed", "true");
+    activeBtn.dataset.active = "true";
   }
 
   function renderMain(img) {
@@ -109,6 +123,8 @@ document.addEventListener("DOMContentLoaded", () => {
         <img
           src="${img.src}"
           alt="${img.alt || "Product image"}"
+          fetchpriority="high"
+          loading="lazy"
           class="product__image w-(--size-343) h-(--size-343) object-cover lg:w-(--size-536) lg:h-(--size-536) rounded-lg"
         />
       </div>
@@ -129,8 +145,10 @@ document.addEventListener("DOMContentLoaded", () => {
           data-index="${index}">
           <img
             role="button"
+            tabindex="0"
             src="${img.thumb}"
             alt="${img.alt || "Product image"}"
+            loading="lazy"
             class="product__image w-(--size-88) h-(--size-88) object-cover rounded-lg"
           />
         </div>
@@ -149,9 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let variant = null;
 
     if (activeSize) {
-      variant = activeProduct.variants.find(
-        (v) => v[optionKey] === activeSize
-      );
+      variant = activeProduct.variants.find((v) => v[optionKey] === activeSize);
     }
 
     if (!variant && activeProduct.defaultVariantId) {
@@ -218,9 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
     sizeButtons = [];
     activeSize = null;
 
-    const values = Array.isArray(product?.sizeValues)
-      ? product.sizeValues
-      : [];
+    const values = Array.isArray(product?.sizeValues) ? product.sizeValues : [];
 
     values.forEach((value) => {
       if (!value) return;
@@ -229,8 +243,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       btn.type = "button";
       btn.className =
-        "product__sizes-btn flex items-center justify-center h-(--size-52) w-full rounded-lg border border-stroke bg-white px-4 text-sm font-medium text-dark transition-colors hover:border-dark focus:outline-none";
+        "product__sizes-btn flex items-center justify-center h-(--size-52) w-full rounded-lg border border-stroke bg-white px-4 text-sm font-medium text-dark transition-colors hover:border-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dark focus-visible:ring-offset-2 " +
+        "data-[active=true]:border-dark data-[active=true]:text-dark";
+
       btn.dataset.size = value;
+      btn.dataset.active = "false";
       btn.setAttribute("aria-pressed", "false");
       btn.textContent = `UK ${value}`;
 
@@ -253,6 +270,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const isActive = String(btn.dataset.productId) === String(productId);
       btn.classList.toggle("is-active", isActive);
       btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+      btn.dataset.active = isActive ? "true" : "false";
     });
   }
 
@@ -295,6 +313,21 @@ document.addEventListener("DOMContentLoaded", () => {
     renderMain(currentImages[idx]);
   });
 
+  thumbsEl.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+
+    const target = event.target;
+    if (!target || target.getAttribute("role") !== "button") return;
+
+    event.preventDefault();
+    const slide = target.closest("[data-index]");
+    if (!slide) return;
+
+    const idx = Number(slide.getAttribute("data-index"));
+    if (Number.isNaN(idx) || !currentImages[idx]) return;
+    renderMain(currentImages[idx]);
+  });
+
   colorButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const productId = btn.dataset.productId;
@@ -303,6 +336,58 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Initialize view with the current product
   switchProduct(activeProductId);
+
+  function openSizeGuide() {
+    if (!sizeGuideModal) return;
+
+    lastFocusedSizeGuideTrigger = document.activeElement;
+
+    sizeGuideModal.classList.remove("hidden");
+    sizeGuideModal.classList.add("flex");
+    sizeGuideModal.setAttribute("aria-hidden", "false");
+
+    (sizeGuideDialog || sizeGuideCloseBtn)?.focus();
+  }
+
+  function closeSizeGuide() {
+    if (!sizeGuideModal) return;
+
+    sizeGuideModal.classList.remove("flex");
+    sizeGuideModal.classList.add("hidden");
+    sizeGuideModal.setAttribute("aria-hidden", "true");
+
+    if (
+      lastFocusedSizeGuideTrigger &&
+      typeof lastFocusedSizeGuideTrigger.focus === "function"
+    ) {
+      lastFocusedSizeGuideTrigger.focus();
+    }
+  }
+
+  if (sizeGuideOpenBtn && sizeGuideModal) {
+    sizeGuideOpenBtn.addEventListener("click", () => {
+      openSizeGuide();
+    });
+  }
+
+  if (sizeGuideCloseBtn) {
+    sizeGuideCloseBtn.addEventListener("click", () => {
+      closeSizeGuide();
+    });
+  }
+
+  if (sizeGuideOverlay) {
+    sizeGuideOverlay.addEventListener("click", closeSizeGuide);
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (
+      event.key === "Escape" &&
+      sizeGuideModal &&
+      !sizeGuideModal.classList.contains("hidden")
+    ) {
+      closeSizeGuide();
+    }
+  });
 });
