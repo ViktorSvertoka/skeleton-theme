@@ -1,20 +1,28 @@
-<section class="cart">
+<section class="py-12 lg:py-20">
   <div class="container">
-    <h1 class="cart__title">{{ 'cart.title' | t }}</h1>
+    <h1 class="mb-8 text-3xl font-semibold text-dark">{{ 'cart.title' | t }}</h1>
 
     {% if cart.empty? %}
-      <div class="cart__empty">
-        <p class="cart__empty-text">{{ 'cart.general.empty' | t }}</p>
-        <a class="cart__empty-link" href="{{ routes.all_products_collection_url }}">
+      <div class="flex flex-col items-center justify-center rounded-2xl border border-stroke bg-white px-6 py-16 text-center">
+        <p class="mb-4 text-lg text-gray">{{ 'cart.general.empty' | t }}</p>
+        <a
+          class="inline-flex items-center justify-center rounded-full bg-dark px-7 py-3 text-sm font-medium text-white transition-colors hover:bg-gray focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dark focus-visible:ring-offset-2"
+          href="{{ routes.all_products_collection_url }}"
+        >
           {{ 'cart.general.continue_shopping' | t }}
         </a>
       </div>
     {% else %}
-      <form action="{{ routes.cart_url }}" method="post" novalidate class="cart__layout">
-        <div class="cart__items">
+      <form
+        action="{{ routes.cart_url }}"
+        method="post"
+        novalidate
+        class="grid gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(320px,420px)]"
+      >
+        <div class="flex flex-col gap-6">
           {% for item in cart.items %}
-            <article class="cart-item">
-              <a class="cart-item__media" href="{{ item.url }}">
+            <article class="flex flex-col gap-5 rounded-2xl border border-stroke bg-white p-6 shadow-sm lg:flex-row">
+              <a class="block w-full flex-none rounded-xl bg-gray-50 lg:w-40" href="{{ item.url }}">
                 {% if item.image %}
                   {{
                     item.image
@@ -23,40 +31,52 @@
                       loading: 'lazy',
                       sizes: '180px',
                       widths: '180, 360',
-                      class: 'cart-item__image'
+                      class: 'h-full w-full rounded-xl object-cover'
                   }}
                 {% endif %}
               </a>
 
-              <div class="cart-item__content">
-                <div class="cart-item__header">
+              <div class="flex flex-1 flex-col gap-5">
+                <div class="flex flex-col gap-2 lg:flex-row lg:items-start lg:justify-between">
                   <div>
-                    <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title }}</a>
+                    <a href="{{ item.url }}" class="text-xl font-semibold leading-tight hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-dark focus-visible:ring-offset-1">
+                      {{ item.product.title }}
+                    </a>
                     {% if item.variant.title != 'Default Title' %}
-                      <p class="cart-item__variant">{{ item.variant.title }}</p>
+                      <p class="text-sm text-gray">
+                        {{ item.variant.title }}
+                      </p>
                     {% endif %}
                   </div>
-                  <div class="cart-item__price">
+                  <div class="text-lg font-semibold">
                     {{ item.line_price | money }}
                   </div>
                 </div>
 
-                <div class="cart-item__meta">
-                  <label class="cart-item__label" for="updates_{{ item.index }}">
+                <div class="flex flex-col gap-3">
+                  <label class="text-xs font-semibold tracking-wide text-gray" for="updates_{{ item.index }}">
                     {{ 'cart.label.quantity' | t }}
                   </label>
-                  <div class="cart-item__controls">
+                  <div class="flex flex-wrap items-center gap-3">
                     <input
                       id="updates_{{ item.index }}"
-                      class="cart-item__input"
+                      class="h-11 w-24 rounded-xl border border-stroke text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dark focus-visible:ring-offset-2"
                       type="number"
                       name="updates[]"
                       value="{{ item.quantity }}"
                       min="0"
                       aria-label="{{ 'cart.label.quantity' | t }}"
                     >
-                    <button type="submit" class="cart-item__update">{{ 'cart.update' | t }}</button>
-                    <a class="cart-item__remove" href="{{ item.url_to_remove }}">
+                    <button
+                      type="submit"
+                      class="rounded-xl border border-stroke px-4 py-2 text-sm font-medium transition hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dark focus-visible:ring-offset-2"
+                    >
+                      {{ 'cart.update' | t }}
+                    </button>
+                    <a
+                      class="text-sm text-gray underline decoration-gray/60 decoration-1 underline-offset-2 hover:text-dark focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-dark focus-visible:ring-offset-1"
+                      href="{{ item.url_to_remove }}"
+                    >
                       {{ 'cart.remove' | t }}
                     </a>
                   </div>
@@ -66,17 +86,28 @@
           {% endfor %}
         </div>
 
-        <aside class="cart-summary">
-          <div class="cart-summary__block">
-            <p class="cart-summary__label">{{ 'cart.general.subtotal' | t }}</p>
-            <p class="cart-summary__value">{{ cart.total_price | money }}</p>
+        <aside class="rounded-2xl border border-stroke bg-white p-6 shadow-sm lg:sticky lg:top-28">
+          <div class="mb-4 flex items-center justify-between text-lg font-semibold">
+            <p class="text-gray">{{ 'cart.general.subtotal' | t }}</p>
+            <p>{{ cart.total_price | money }}</p>
           </div>
-          <p class="cart-summary__note">{{ 'cart.general.taxes_and_shipping_policy_html' | t }}</p>
+          <p class="mb-6 text-sm text-gray">
+            {{ 'cart.general.taxes_and_shipping_policy_html' | t }}
+          </p>
 
-          <button type="submit" class="cart-summary__update" name="update" value="{{ 'cart.update' | t }}">
+          <button
+            type="submit"
+            name="update"
+            value="{{ 'cart.update' | t }}"
+            class="mb-3 h-12 w-full rounded-xl border border-stroke text-sm font-semibold transition hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dark focus-visible:ring-offset-2"
+          >
             {{ 'cart.update' | t }}
           </button>
-          <button type="submit" name="checkout" class="cart-summary__checkout">
+          <button
+            type="submit"
+            name="checkout"
+            class="h-12 w-full rounded-xl bg-dark text-sm font-semibold text-white transition hover:bg-gray focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dark focus-visible:ring-offset-2"
+          >
             {{ 'cart.checkout' | t }}
           </button>
         </aside>

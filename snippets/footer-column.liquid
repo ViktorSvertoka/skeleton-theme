@@ -22,7 +22,7 @@
             assign link_url = link.url | default: '#'
           %}
           <li>
-            <a href="{{ link_url }}" class="text-sm text-gray transition-colors duration-300 hover:text-dark">
+            <a href="{{ link_url }}" class="text-sm text-gray transition-colors duration-300 hover:text-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dark focus-visible:ring-offset-2">
               {{ link_label }}
             </a>
           </li>

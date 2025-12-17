@@ -9,11 +9,14 @@
   <li>
     <button
       type="button"
-      class="product__button h-(--size-88) w-(--size-88) overflow-hidden rounded-lg border border-transparent transition hover:border-dark is-active"
+      class="product__button h-(--size-88) w-(--size-88) overflow-hidden rounded-lg border border-transparent transition hover:border-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dark focus-visible:ring-offset-2 data-[active=true]:border-dark"
       data-color="{{ current_color_name | downcase }}"
       data-product-id="{{ product.id }}"
       data-product-url="{{ product.url }}"
+      aria-controls="product-gallery"
       aria-pressed="true"
+      aria-label="View {{ current_color_name }} colorway"
+      data-active="true"
     >
       {% if product.featured_image %}
         {{
@@ -36,11 +39,14 @@
     <li>
       <button
         type="button"
-        class="product__button h-(--size-88) w-(--size-88) overflow-hidden rounded-lg border border-transparent transition hover:border-dark"
+        class="product__button h-(--size-88) w-(--size-88) overflow-hidden rounded-lg border border-transparent transition hover:border-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dark focus-visible:ring-offset-2 data-[active=true]:border-dark"
         data-color="{{ color_name | downcase }}"
         data-product-id="{{ color_product.id }}"
         data-product-url="{{ color_product.url }}"
+        aria-controls="product-gallery"
         aria-pressed="false"
+        aria-label="View {{ color_name }} colorway"
+        data-active="false"
       >
         {% if color_product.featured_image %}
           {{
