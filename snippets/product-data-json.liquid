@@ -1,0 +1,31 @@
+{% liquid
+  assign shoe_option = product.options_by_name['Shoe size']
+  assign size_option_position = shoe_option.position | default: 1
+  assign size_values = shoe_option.values
+  assign size_option_name = shoe_option.name | default: 'Size'
+  assign first_variant = product.selected_or_first_available_variant
+  assign image_media = product.media | where: 'media_type', 'image'
+  assign color_name = product.metafields.custom.color | default: product.title
+%}
+{
+  "id": {{ product.id }},
+  "title": {{ product.title | json }},
+  "url": {{ product.url | json }},
+  "color": {{ color_name | downcase | json }},
+  "description": {{ product.description | strip_html | json }},
+  "sizeOptionPosition": {{ size_option_position }},
+  "sizeOptionName": {{ size_option_name | json }},
+  "sizeValues": {{ size_values | json }},
+  "variants": {{ product.variants | json }},
+  "defaultVariantId": {{ first_variant.id }},
+  "media": [
+    {% for media in image_media %}
+      {
+        "id": {{ media.id }},
+        "src": "{{ media | image_url: width: 536 }}",
+        "thumb": "{{ media | image_url: width: 88 }}",
+        "alt": {{ media.alt | default: product.title | json }}
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}

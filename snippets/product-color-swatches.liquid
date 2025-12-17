@@ -1,27 +1,58 @@
+{% assign related_colors_field = product.metafields.custom.related_colors %}
+{% assign related_color_products = blank %}
+{% if related_colors_field %}
+  {% assign related_color_products = related_colors_field.value | default: related_colors_field %}
+{% endif %}
+
 <ul class="mb-6 flex gap-3">
-    {% assign used_colors = '' %}
-    {% for variant in product.variants %}
-      {% assign color = variant.option1 | downcase %}
-      {% unless used_colors contains color %}
-        {% assign used_colors = used_colors | append: color | append: ',' %}
-        <li>
-          <button
-            type="button"
-            class="product__button h-(--size-88) w-(--size-88) overflow-hidden rounded-lg border border-transparent transition hover:border-dark"
-            data-color="{{ color }}"
-            data-variant-id="{{ variant.id }}"
-          >
-            {% if variant.featured_image %}
-              {{
-                variant.featured_image
-                | image_url: width: 120
-                | image_tag:
-                  class: 'h-full w-full object-cover',
-                  loading: 'lazy'
-              }}
-            {% endif %}
-          </button>
-        </li>
-      {% endunless %}
-    {% endfor %}
+  {% assign current_color_name = product.metafields.custom.color | default: product.title %}
+  <li>
+    <button
+      type="button"
+      class="product__button h-(--size-88) w-(--size-88) overflow-hidden rounded-lg border border-transparent transition hover:border-dark is-active"
+      data-color="{{ current_color_name | downcase }}"
+      data-product-id="{{ product.id }}"
+      data-product-url="{{ product.url }}"
+      aria-pressed="true"
+    >
+      {% if product.featured_image %}
+        {{
+          product.featured_image
+          | image_url: width: 120
+          | image_tag:
+            class: 'h-full w-full object-cover',
+            loading: 'lazy',
+            alt: current_color_name
+        }}
+      {% endif %}
+    </button>
+  </li>
+
+  {% for color_product in related_color_products %}
+    {% if color_product == blank or color_product.id == product.id %}
+      {% continue %}
+    {% endif %}
+    {% assign color_name = color_product.metafields.custom.color | default: color_product.title %}
+    <li>
+      <button
+        type="button"
+        class="product__button h-(--size-88) w-(--size-88) overflow-hidden rounded-lg border border-transparent transition hover:border-dark"
+        data-color="{{ color_name | downcase }}"
+        data-product-id="{{ color_product.id }}"
+        data-product-url="{{ color_product.url }}"
+        aria-pressed="false"
+      >
+        {% if color_product.featured_image %}
+          {{
+            color_product.featured_image
+            | image_url: width: 120
+            | image_tag:
+              class: 'h-full w-full object-cover',
+              loading: 'lazy',
+              alt: color_name
+          }}
+        {% endif %}
+      </button>
+    </li>
+  {% endfor %}
 </ul>

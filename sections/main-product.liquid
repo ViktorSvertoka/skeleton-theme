@@ -1,5 +1,10 @@
 {% assign product = section.settings.product %}
 {% if product == blank %}{% endif %}
+{% assign related_colors_field = product.metafields.custom.related_colors %}
+{% assign related_color_products = blank %}
+{% if related_colors_field %}
+  {% assign related_color_products = related_colors_field.value | default: related_colors_field %}
+{% endif %}
 
 <script src="{{ 'main-product.js' | asset_url }}" defer></script>
 
@@ -14,7 +19,7 @@
 
       <div class="product__info max-w-(--size-648)">
 
-        <h1 class="mb-2 text-3xl font-medium">
+        <h1 class="product__title mb-2 text-3xl font-medium">
           {{ product.title }}
         </h1>
 
@@ -29,7 +34,7 @@
           <span class="text-gray">5.0</span>
         </div>
 
-        <p class="mb-4 text-sm leading-relaxed text-gray">
+        <p class="product__description mb-4 text-sm leading-relaxed text-gray">
           {{ product.description | strip_html }}
         </p>
 
@@ -49,12 +54,7 @@
             value="{{ v.id }}"
             class="variant-id-input"
           >
-          <button
-            type="submit"
-            class="mb-4 flex items-center justify-center h-14 w-full rounded-lg bg-dark px-8 text-sm font-medium text-white transition-colors hover:bg-gray"
-          >
-          Add To Bag
-          </button>
+          {% render 'product-add-to-cart-button', label: 'Add To Bag' %}
 
         {% endform %}
 
@@ -71,16 +71,16 @@
 
 <script>
   window.__PRODUCT_DATA__ = {
-    variants: {{ product.variants | json }},
-    media: [
-      {% for media in product.media %}
-        {% if media.media_type == 'image' and media.alt contains 'color:' %}
-          {
-            src: "{{ media | image_url: width: 536 }}",
-            thumb: "{{ media | image_url: width: 88 }}",
-            color: "{{ media.alt | replace: 'color:', '' | downcase }}"
-          }{% unless forloop.last %},{% endunless %}
+    activeProductId: {{ product.id }},
+    moneyFormat: {{ shop.money_format | json }},
+    moneyCurrency: {{ shop.currency | json }},
+    products: [
+      {% render 'product-data-json', product: product %}
+      {% for color_product in related_color_products %}
+        {% if color_product == blank %}
+          {% continue %}
         {% endif %}
+        ,{% render 'product-data-json', product: color_product %}
       {% endfor %}
     ]
   };
