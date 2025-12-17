@@ -1,10 +1,13 @@
+{% assign shoe_size_option = product.options_by_name['Shoe size'] %}
+{% assign size_option_label = shoe_size_option.name | default: 'Size' %}
+
 <div class="mb-2 flex items-center justify-between">
-          <span class="text-sm font-medium">Select Size:</span>
+          <span class="product__size-label text-sm font-medium">Select {{ size_option_label }}:</span>
           <a href="#" class="text-sm underline">Size Guide</a>
         </div>
 
-        <ul class="mb-6 grid grid-cols-3 gap-3">
-  {% for value in product.options_by_name['Shoe size'].values %}
+        <ul class="product__sizes-list mb-6 grid grid-cols-3 gap-3">
+  {% for value in shoe_size_option.values %}
     <li>
       <button
         type="button"
