@@ -1,0 +1,32 @@
+{% assign status = status | downcase | default: 'in_stock' %}
+{% liquid
+  case status
+    when 'out_of_stock'
+      assign label = 'Out of stock'
+      assign dot_class = 'bg-gray-400'
+      assign text_class = 'text-gray'
+      assign border_class = 'border-gray-300'
+    when 'low_stock'
+      assign label = 'Low stock'
+      assign dot_class = 'bg-amber-500'
+      assign text_class = 'text-amber-600'
+      assign border_class = 'border-amber-200'
+    when 'running_out'
+      assign label = 'Running out'
+      assign dot_class = 'bg-red-500'
+      assign text_class = 'text-red-600'
+      assign border_class = 'border-red-200'
+    else
+      assign label = 'In stock'
+      assign dot_class = 'bg-emerald-500'
+      assign text_class = 'text-emerald-600'
+      assign border_class = 'border-emerald-200'
+  endcase
+%}
+<span
+  class="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium {{ text_class }} {{ border_class }}"
+  data-stock-indicator
+>
+  <span class="block h-2.5 w-2.5 rounded-full {{ dot_class }}" data-stock-dot></span>
+  <span data-stock-label>{{ label }}</span>
+</span>

@@ -1,9 +1,20 @@
   {% assign v = product.selected_or_first_available_variant %}
-        <div class="mb-6 flex items-center gap-3">
-          <p class="product__compare text-sm text-gray line-through"{% if v.compare_at_price <= v.price %} style="display:none"{% endif %}>
-            {{ v.compare_at_price | money }}
-          </p>
-          <p class="product__price text-lg font-medium">
-            {{ v.price | money }}
-          </p>
+  {% assign stock_status = 'in_stock' %}
+  {% if v.inventory_quantity <= 0 %}
+    {% assign stock_status = 'out_of_stock' %}
+  {% elsif v.inventory_quantity <= 5 %}
+    {% assign stock_status = 'running_out' %}
+  {% elsif v.inventory_quantity <= 10 %}
+    {% assign stock_status = 'low_stock' %}
+  {% endif %}
+        <div class="mb-6 flex flex-wrap items-center gap-4">
+          <div class="flex items-baseline gap-3">
+            <p class="product__compare text-sm text-gray line-through"{% if v.compare_at_price <= v.price %} style="display:none"{% endif %}>
+              {{ v.compare_at_price | money }}
+            </p>
+            <p class="product__price text-lg font-medium">
+              {{ v.price | money }}
+            </p>
+          </div>
+          {% render 'product-stock-indicator', status: stock_status %}
         </div>
