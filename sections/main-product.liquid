@@ -68,74 +68,8 @@
     </div>
   </div>
 
-  {% assign size_guide_table = section.settings.size_guide_table | strip %}
-  {% if size_guide_table != blank %}
-    {% assign newline = '\n' %}
-    {% assign size_guide_rows = size_guide_table | split: newline %}
-    {% assign size_guide_title = section.settings.size_guide_title | default: 'Size Guide' %}
-    {% assign size_guide_id = 'size-guide-' | append: section.id %}
-    <div
-      class="fixed inset-0 z-50 hidden items-center justify-center p-4"
-      data-size-guide
-      aria-hidden="true"
-    >
-      <div
-        class="absolute inset-0 bg-black/60"
-        data-size-guide-overlay
-        tabindex="-1"
-      ></div>
-      <div
-        class="relative w-full max-w-xl rounded-2xl bg-white p-7 shadow-[0_20px_45px_rgba(17,17,17,0.2)]"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="{{ size_guide_id }}"
-        tabindex="-1"
-        data-size-guide-dialog
-      >
-        <div class="mb-4 flex items-center justify-between gap-4">
-          <h3 id="{{ size_guide_id }}" class="text-xl font-semibold text-dark">{{ size_guide_title }}</h3>
-          <button
-            type="button"
-            class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-stroke transition hover:bg-gray-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dark focus-visible:ring-offset-2"
-            data-size-guide-close
-            aria-label="Close size guide"
-          >
-            <svg class="h-4 w-4 rotate-45" aria-hidden="true">
-              <use href="{{ 'sprite.svg' | asset_url }}#plus"></use>
-            </svg>
-          </button>
-        </div>
-
-        <div class="overflow-x-auto">
-          <table class="w-full border-collapse text-sm">
-            <tbody>
-              {% for row in size_guide_rows %}
-                {% assign row = row | strip %}
-                {% if row == blank %}
-                  {% continue %}
-                {% endif %}
-                {% assign row_parts = row | split: '|' %}
-                {% assign row_label = row_parts[0] | strip %}
-                {% assign row_values_raw = row_parts[1] | default: '' %}
-                {% assign row_values = row_values_raw | split: ',' %}
-                <tr class="{% cycle 'bg-white', 'bg-gray-50' %}">
-                  <th scope="row" class="px-4 py-3 text-left text-sm font-semibold text-dark">
-                    {{ row_label }}
-                  </th>
-                  {% for value in row_values %}
-                    {% assign value = value | strip %}
-                    {% if value != blank %}
-                      <td class="px-4 py-3 text-center text-sm text-dark">{{ value }}</td>
-                    {% endif %}
-                  {% endfor %}
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  {% endif %}
+  {% assign size_guide = product.metafields.custom.size_guide.value | default: product.metafields.custom.size_guide %}
+  {% render 'product-size-guide-modal', size_guide: size_guide, size_guide_title: section.settings.size_guide_title, section_id: section.id %}
 </section>
 
 <script>
@@ -170,13 +104,6 @@
       "id": "size_guide_title",
       "label": "Size guide title",
       "default": "Size Guide"
-    },
-    {
-      "type": "textarea",
-      "id": "size_guide_table",
-      "label": "Size guide rows",
-      "info": "Use the format `Label|value,value,value` per line.",
-      "default": "US - Men's|3.5,4,4.5,5\nUS - Women's|5,5.5,6,6.5\nUK|3,3.5,4,4.5\nEU|35.5,36,36.5,37.5"
     }
   ],
   "presets": [
