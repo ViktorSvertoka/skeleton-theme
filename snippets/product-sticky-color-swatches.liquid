@@ -1,0 +1,52 @@
+{% assign related_colors_field = related_color_products %}
+{% assign current_color_name = product.metafields.custom.color | default: product.title %}
+
+<div class="flex items-center gap-1">
+  <button
+    type="button"
+    class="product__button h-8 w-8 overflow-hidden rounded-full border border-transparent transition hover:border-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dark focus-visible:ring-offset-2 data-[active=true]:border-dark"
+    data-sticky-color-btn
+    data-product-id="{{ product.id }}"
+    aria-pressed="true"
+    aria-label="View {{ current_color_name }} colorway"
+    data-active="true"
+  >
+    {% if product.featured_image %}
+      {{
+        product.featured_image
+        | image_url: width: 80
+        | image_tag:
+          class: 'h-full w-full object-cover',
+          loading: 'lazy',
+          alt: current_color_name
+      }}
+    {% endif %}
+  </button>
+
+  {% for color_product in related_color_products %}
+    {% if color_product == blank or color_product.id == product.id %}
+      {% continue %}
+    {% endif %}
+    {% assign color_name = color_product.metafields.custom.color | default: color_product.title %}
+    <button
+      type="button"
+      class="product__button h-8 w-8 overflow-hidden rounded-full border border-transparent transition hover:border-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dark focus-visible:ring-offset-2 data-[active=true]:border-dark"
+      data-sticky-color-btn
+      data-product-id="{{ color_product.id }}"
+      aria-pressed="false"
+      aria-label="View {{ color_name }} colorway"
+      data-active="false"
+    >
+      {% if color_product.featured_image %}
+        {{
+          color_product.featured_image
+          | image_url: width: 80
+          | image_tag:
+            class: 'h-full w-full object-cover',
+            loading: 'lazy',
+            alt: color_name
+        }}
+      {% endif %}
+    </button>
+  {% endfor %}
+</div>
