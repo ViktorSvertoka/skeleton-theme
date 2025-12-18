@@ -18,6 +18,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const variantInput = root.querySelector(".variant-id-input");
   const priceEl = root.querySelector(".product__price");
   const compareEl = root.querySelector(".product__compare");
+  const stockIndicatorEl = root.querySelector("[data-stock-indicator]");
+  const stockLabelEl = root.querySelector("[data-stock-label]");
+  const stockDotEl = root.querySelector("[data-stock-dot]");
   const sizeGuideModal = root.querySelector("[data-size-guide]");
   const sizeGuideOpenBtn = root.querySelector("[data-size-guide-open]");
   const sizeGuideCloseBtn = sizeGuideModal?.querySelector(
@@ -214,6 +217,36 @@ document.addEventListener("DOMContentLoaded", () => {
         compareEl.style.display = "none";
       }
     }
+
+    if (stockIndicatorEl && stockLabelEl && stockDotEl) {
+      const { label, dotClass, textClass } = getStockStatus(
+        variant.inventory_quantity
+      );
+
+      stockLabelEl.textContent = label;
+
+      stockIndicatorEl.classList.remove(
+        "text-emerald-600",
+        "text-red-600",
+        "text-amber-600",
+        "text-gray",
+        "border-emerald-200",
+        "border-red-200",
+        "border-amber-200",
+        "border-gray-300"
+      );
+      stockDotEl.classList.remove(
+        "bg-emerald-500",
+        "bg-red-500",
+        "bg-amber-500",
+        "bg-gray-400"
+      );
+
+      textClass.split(" ").forEach((cls) => {
+        if (cls) stockIndicatorEl.classList.add(cls);
+      });
+      stockDotEl.classList.add(dotClass);
+    }
   }
 
   function handleSizeButtonClick(btn) {
@@ -391,3 +424,33 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+  function getStockStatus(quantity) {
+    const qty = Number(quantity) || 0;
+    if (qty <= 0) {
+      return {
+        label: "Out of stock",
+        dotClass: "bg-red-500",
+        textClass: "text-red-600 border-red-200",
+      };
+    }
+    if (qty <= 5) {
+      return {
+        label: "Running out",
+        dotClass: "bg-red-500",
+        textClass: "text-red-600 border-red-200",
+      };
+    }
+    if (qty <= 10) {
+      return {
+        label: "Low stock",
+        dotClass: "bg-amber-500",
+        textClass: "text-amber-600 border-amber-200",
+      };
+    }
+
+    return {
+      label: "In stock",
+      dotClass: "bg-emerald-500",
+      textClass: "text-emerald-600 border-emerald-200",
+    };
+  }
